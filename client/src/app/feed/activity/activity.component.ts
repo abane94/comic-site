@@ -17,12 +17,12 @@ export class ActivityComponent implements OnInit {
 
     ngOnInit() {
         if (!this.activity_data) {
-            this.activity_data = new Post({
-                user_name: 'asdfqwer',
-                // profile_pic: "",
-                type: 'text',
-                message: 'This is my first post!!!1',
-            });
+            // this.activity_data = {
+            //     user_name: 'asdfqwer',
+            //     // profile_pic: "",
+            //     type: 'text',
+            //     message: 'This is my first post!!!1',
+            // };
         } else {
             // console.log(JSON.stringify(this.activity_data));
             // console.dir(this.activity_data);
