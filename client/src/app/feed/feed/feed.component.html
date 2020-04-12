@@ -1,0 +1,14 @@
+<div id="feed_container" color="basic">
+
+    <div *ngIf="feed_data">
+        <div id="grid" *ngIf="feed_data.posts">
+            <div class="post_container" *ngFor="let post of feed_data.posts">
+                <activity-post [activity_data]="post"></activity-post>
+            </div>
+        </div>
+
+        <div *ngIf="!feed_data.posts">
+            <button type="button" (click)="reload()" value="Reload">Reload</button>
+        </div>
+    </div>
+</div>

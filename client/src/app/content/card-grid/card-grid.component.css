@@ -1,0 +1,9 @@
+#grid{
+    padding: 5px;
+}
+
+.card_container{
+    display: inline-block;
+    margin: 5px;
+    width: 210px;
+}

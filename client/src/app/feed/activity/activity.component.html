@@ -1,0 +1,30 @@
+<mat-card class="post" color="primary">
+    <mat-card-header color="basic">
+      <div mat-card-avatar >
+        <img *ngIf="activity_data.profile_pic" src="{{activity_data.profile_pic}}">
+        <img *ngIf="!activity_data.profile_pic" src="https://www.makeuseof.com/tag/infographic-profile-pic-damaging-online-personal-brand/">
+      </div>
+
+      <mat-card-title>
+        <a href="/home/{{activity_data.user_id}}">
+            {{activity_data.user_name}}
+        </a>
+      </mat-card-title>
+
+      <!-- this could be used for specifying creator or not or company/group name -->
+      <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+    </mat-card-header>
+
+    <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+
+    <mat-card-content color="primary">
+      <p>
+        {{activity_data.message}}
+      </p>
+    </mat-card-content>
+    
+    <mat-card-actions>
+      <button mat-button (click)="like()" color="accent">LIKE</button>
+      <button mat-button (click)="share()">SHARE</button>
+    </mat-card-actions>
+  </mat-card>

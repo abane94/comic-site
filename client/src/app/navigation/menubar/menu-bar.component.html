@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+
+    <mat-toolbar-row>
+        <a routerLink="/#"><button mat-button color="accent" class="logo">Lixes</button></a> <!-- color="primary" makes it invisible against he background-->
+        <a routerLink="/home"><button mat-button>Home</button></a>
+        <a routerLink="/feed"><button mat-button>Feed</button></a>
+        <button mat-button (click)="toggleSideBar.emit()">Toggle</button>
+        <span class="spacer"></span>
+
+        <mat-form-field class="example-form-field" color="accent">
+            <input matInput type="text" placeholder="" color="accent"/> <!--  [(ngModel)]="value"-->
+            <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <mat-icon>close</mat-icon>
+            </button> -->
+            <button mat-icon-button >
+                <mat-icon aria-label="search" color="basic">search</mat-icon>
+            </button>
+        </mat-form-field>
+        <span class="spacer"></span>
+        <!-- <span class="spacer"></span> -->
+
+        <span *ngIf="auth.user">
+            <a routerLink="profile/{{auth.user.id}}"><button mat-button>{{auth.user.firstName}} {{auth.user.lastName}}</button></a>
+            <button mat-button (click)="auth.logout()">Logout</button>
+        </span>
+        <span *ngIf="!auth.user">
+            <img id="googleSignIn" (click)="auth.login()">
+        </span>
+    </mat-toolbar-row>
+</mat-toolbar>

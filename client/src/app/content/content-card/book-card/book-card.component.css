@@ -1,0 +1,11 @@
+.content-card_img{
+    /* width: 210px; */
+    height: 260px;
+    border-radius: 5px 5px 0px 0px;
+    /* margin: 0;
+    margin-top: -24px; */
+}
+
+.mat-card-header-text{
+    margin: 0 !important;
+}

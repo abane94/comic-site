@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css?family=Bangers');
+
+#mainBar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+     position: fixed;
+    overflow: hidden;   /* REMOVE THIS HACK WITH BETTER CSS*/
+    height: 10%;
+}
+
+ul{
+	background-color: #880015;
+}
+
+/* .navButton *{
+    padding: 10px;
+} */
+
+.navButton {
+    float: left;
+    /* margin: 0px 3px 0px 3px; */
+    margin: 20px;
+    height: 100%;
+}
+
+.spacer{
+    flex: 1 1 auto;
+}
+
+ .leftNavButton {
+	float: right;
+	font-size: 24px;
+}
+
+.navButton :hover{
+    background-color: lightblue;
+}
+
+#search_container{
+    /* margin: auto; */
+    margin: auto;
+    width: 30%;
+    height: auto;
+    margin-top: 25px;
+}
+
+input[type=search] {
+    margin: auto;
+    box-sizing: border-box;
+    border: none;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, .0);
+    border-bottom: 2px solid black;
+    /* margin: auto; */
+}
+
+mat-toolbar-row a{
+    height:100%;
+    font-weight: bold;
+}
+
+a button{
+    height: 100%;
+    font-size: large;
+}
+
+#logo{
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    height: auto;
+    padding: auto;
+}
+a button.logo{
+    font-family: 'Bangers', cursive;
+    font-size: x-large;
+    text-decoration: underline;
+}
+
+#googleSignIn {
+    content: url("/assets/google_signin/btn_google_signin_dark_normal_web.png");
+    margin-top: 6px;
+}
+
+#googleSignIn:hover {
+    content: url("/assets/google_signin/btn_google_signin_dark_focus_web.png");
+}
+
+
+/*###########################################*/
+
+/*
+colors:
+	#880015 - maroon
+	#001c37 - navy / grey
+	#44444b - light grey
+	#141c28 - dark grey
+*/
+/*
+li a {
+    display: block;
+    color: #000;
+    padding: 20px 16px;
+    text-decoration: none;
+	height: 10%;
+	font-size: 20px;
+	color: white;
+}
+
+li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+} */

@@ -1,0 +1,36 @@
+#profile {
+    width: 100%;
+    min-height: 400px;
+    height: 100%;
+    background-color: lightblue;
+  }
+  
+  #banner {
+    width: 100%;
+    max-height: 15%;
+  }
+  #profile_pic img{
+    height: 250px;
+    width: 250px;
+  }
+  #profile_pic {
+    border-radius: 50%;
+    position: absolute;
+    height: 250px;
+    width: 250px;
+    /* top: (documnet.getElementById('banner').height) px; */
+    top: 150px;
+    left: 50px;
+    
+  }
+  
+  #name{
+    font-size: 28pt;
+    color: red;
+    margin-left: 30%;
+    margin-top: 10%;
+  }
+  
+  #profile_content{
+    
+  }

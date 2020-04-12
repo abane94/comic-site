@@ -1,0 +1,16 @@
+<div *ngIf="grid_data">
+  <div *ngIf="grid_data.query || grid_data.query ===''">
+
+    <div id="grid" *ngIf="grid_data.cards">
+      <div class="card_container" *ngFor="let card of grid_data.cards">
+        <content-card [card_data]="card"></content-card>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!grid_data.cards">
+      <button type="button" (click)="reload()" value="Reload">Reload</button>
+  </div>
+
+  <app-upload></app-upload>
+</div>

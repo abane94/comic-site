@@ -1,0 +1,16 @@
+<div>
+  <p *ngFor="let image of images">
+    <!-- {{image}} -->
+  </p>
+  <div *ngIf="images && images.length" style="width: 600px;">
+    <!-- <slideshow [imageUrls]="images"></slideshow> -->
+    <slideshow
+           [minHeight]="'700px'"
+           [autoPlay]="false"
+           [showArrows]="true"
+           [imageUrls]="images"
+           [lazyLoad]="images?.length > 1"
+           [autoPlayWaitForLazyLoad]="true">
+    </slideshow>
+  </div>
+</div>

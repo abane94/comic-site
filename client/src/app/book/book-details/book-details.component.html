@@ -1,0 +1,33 @@
+
+<div *ngIf="book" fxLayout="row" fxLayoutAlign="space-between stretch">
+
+  <!-- left column -->
+  <div class="column column-side column-left">
+
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="space-around stretch" class="column column-middle">
+    <img src="{{book.thumb_lg}}"  height="250px"/>
+
+    <div fxLayout="column" fxLayoutAlign="space-evenly">
+      <a routerLink="/book/{{ book.id }}">
+        <button mat-raised-button color="primary">Read Now</button>
+      </a>
+      <div fxLayout="row"fxLayoutAlign="space-between">
+        <h1>{{ book.series_name }}</h1>
+        <h1>{{ book.iss_num }}</h1>
+      </div>
+
+      <h2>{{ book.creator_name }}</h2>
+
+      <div *ngIf="book.pages">{{ book.pages.length }} page{{ book.pages.length + 1 ? 's': '' }}</div>
+
+      <h4>{{ book.desc_sh }}</h4>
+    </div>
+  </div>
+
+  <!-- right column -->
+  <div class="column column-side column-right">
+
+  </div>
+</div>

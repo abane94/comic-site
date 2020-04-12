@@ -1,0 +1,73 @@
+.block{
+    display: block;
+    /* width: 210px;
+    height: 260px; */
+}
+.content-card{
+    /* max-width: 200px; */
+    height: 400px;
+    /* width: 210px !important; */
+    border-radius: 5px;
+    /* padding: 10px; */
+    transition: all .12s linear;
+        box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
+}
+
+.content-card:hover{
+    box-shadow: -1px 10px 29px 0px rgba(0,0,0,0.8);
+}
+
+.content-card:hover .content-card_img{
+    /* for use when description appears on hover */
+    /* opacity: 0.5; */
+}
+
+.content-card_img{
+    width: 210px;
+    height: 260px;
+    border-radius: 5px 5px 0px 0px;
+    /* margin: 0;
+    margin-top: -24px; */
+}
+
+mat-card-header{
+    width: 100%;
+    /* display: flex;
+    justify-content: space-between; */
+}
+
+mat-card-header div{
+    width: 100%;
+}
+
+.mat-card-header-text{
+    width: 100%;
+}
+
+.title{
+    margin-bottom: 3px;
+    font-weight: 600;
+    margin-left: -14px;
+    display: inline-block;
+    width: 160px;
+    overflow: hidden;
+}
+
+mat-card-content{
+    margin-left: -4px;
+}
+
+mat-card-title {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.iss_num {
+    /* float: right; */
+    display: inline-block;
+    margin-left: auto;
+    /* padding-left: 5px; */
+    /* flex: 1; */
+}
