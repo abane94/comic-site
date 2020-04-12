@@ -3,7 +3,7 @@ import { HttpService } from './http.service';
 
 import { Observable } from 'rxjs';
 
-import { Post } from '../../../../models/post';
+import { Post } from '../../../models';
 
 @Injectable()
 export class FeedService {

@@ -3,7 +3,7 @@ import { HttpService } from './http.service';
 
 import { Observable } from 'rxjs';
 
-import { Book } from '../../../../models/book';
+import { Book } from '../../../models';
 
 @Injectable()
 export class ContentService {

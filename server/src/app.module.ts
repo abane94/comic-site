@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SeriesModule } from './series/series.module';
@@ -8,7 +10,16 @@ import { FeedModule } from './feed/feed.module';
 import { UploadModule } from './upload/upload.module';
 
 @Module({
-  imports: [SeriesModule, BookModule, UserModule, FeedModule, UploadModule],
+  imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'client', 'dist', 'lixes-client'),
+    }),
+    SeriesModule,
+    BookModule,
+    UserModule,
+    FeedModule,
+    UploadModule
+  ],
   controllers: [AppController],
   providers: [AppService]
 })

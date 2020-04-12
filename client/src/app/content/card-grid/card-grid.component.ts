@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 
 import { ContentService } from '../../shared/services/content.service';
 
-import { Book } from '../../../../models/book';
+import { Book } from '../../../models';
 
 @Component({
   selector: 'app-card-grid',

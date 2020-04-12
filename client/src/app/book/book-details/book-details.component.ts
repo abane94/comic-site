@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Book } from '../../../../models/book';
+import { Book } from '../../../models';
 import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { ContentService } from '../../shared/services/content.service';
 

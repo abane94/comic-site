@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 
 import { FeedService } from '../../shared/services/feed.service';
 
-import { Post } from '../../../../models/post';
+import { Post } from '../../../models';
 
 @Component({
     selector: 'activity-feed',

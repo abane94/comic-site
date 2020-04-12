@@ -11,5 +11,8 @@
     "baseUrl": "./",
     "incremental": true
   },
+  "references": [
+    { "path": "../client/models" }
+  ],
   "exclude": ["node_modules", "dist"]
 }

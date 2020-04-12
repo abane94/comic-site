@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpService } from './http.service';
-import { User } from '../../../../models/user';
+import { User } from '../../../models';
 
 import { AuthService } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";

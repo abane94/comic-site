@@ -1,3 +1,3 @@
-export { Book } from '../../client/models/book';
-export { Post } from '../../client/models/post';
-export { User } from '../../client/models/user';
+export { Book } from './models/book';
+export { Post } from './models/post';
+export { User } from './models/user';
