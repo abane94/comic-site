@@ -8,6 +8,8 @@ import { BookModule } from './book/book.module';
 import { UserModule } from './user/user.module';
 import { FeedModule } from './feed/feed.module';
 import { UploadModule } from './upload/upload.module';
+import { DataModule } from './data/data.module';
+import configProvider from './config-provider';
 
 @Module({
   imports: [
@@ -18,9 +20,13 @@ import { UploadModule } from './upload/upload.module';
     BookModule,
     UserModule,
     FeedModule,
-    UploadModule
+    UploadModule,
+    DataModule
   ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [
+    AppService,
+    configProvider
+  ]
 })
 export class AppModule {}

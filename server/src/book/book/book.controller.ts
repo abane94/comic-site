@@ -1,8 +1,12 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, Query, Inject } from '@nestjs/common';
 import { Book } from '../../models';
+import * as constants from '../../constants';
+import { Collection } from 'mongodb';
 
 @Controller('book')
 export class BookController {
+
+    constructor(@Inject(constants.bookCollection) private bookCol: Collection<Book>) {}
 
     @Post()
     create(@Body() createBook: Book) {
