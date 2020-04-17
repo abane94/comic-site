@@ -18,7 +18,8 @@ const routes: Routes = [
     { path: 'feed', component: FeedComponent },
     { path: 'profile/:id', component: ProfilePageComponent },
     { path: 'book/:id', component: BookViewComponent },
-    { path: 'book/details/:id', component: BookDetailsComponent}
+    { path: 'book/details/:id', component: BookDetailsComponent},
+    { path: 'studio', loadChildren: () => import('./studio/studio.module').then(m => m.StudioModule) }
 ];
 
 @NgModule({
