@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { buildDataProviders } from './data-provider-builder';
-import configProvider from 'src/config-provider';
+import configProvider from '../config-provider';
 import * as constants from '../constants';
 
 @Module({

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { BookController } from './book/book.controller';
-import { DataModule } from 'src/data/data.module';
-import configProvider from 'src/config-provider';
+import { DataModule } from '../data/data.module';
+import configProvider from '../config-provider';
 
 @Module({
   imports: [DataModule],
