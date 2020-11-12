@@ -8,6 +8,7 @@ import { MaterialModule } from '../material.module';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BookEditorComponent } from './book-editor/book-editor.component';
+import { UploadModule } from '../upload/upload.module';
 
 
 
@@ -20,7 +21,8 @@ import { BookEditorComponent } from './book-editor/book-editor.component';
     FlexLayoutModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    UploadModule
   ]
 })
 export class StudioModule { }

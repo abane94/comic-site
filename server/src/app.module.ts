@@ -16,6 +16,10 @@ import configProvider from './config-provider';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '..', 'client', 'dist', 'lixes-client'),
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, 'upload-data'),
+      serveRoot: '/temp'
+    }),
     SeriesModule,
     BookModule,
     UserModule,

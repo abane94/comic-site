@@ -15,7 +15,7 @@ import { BookCardComponent } from './content-card/book-card/book-card.component'
     CommonModule,
     MatButtonModule,
     MatCardModule,
-    UploadModule
+    // UploadModule
   ],
   declarations: [
       CardGridComponent,

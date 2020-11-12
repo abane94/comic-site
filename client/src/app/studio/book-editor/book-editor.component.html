@@ -1,33 +1,45 @@
-<form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
-      
-    <!-- Short Description -->
-    <mat-form-field>
-      <input matInput placeholder="Blurb" formControlName="desc_sh">
-    </mat-form-field>
+<form [formGroup]="form" (ngSubmit)="submitForm()" novalidate fxLayout="row">
+    <span fxFlex="10" class="spacer"></span>
 
-    <!-- Long Description -->
-    <mat-form-field>
-      <input matInput placeholder="Description" formControlName="desc_lg">
-    </mat-form-field>
+    <span fxFlex="40" class="details-pane" novalidate fxLayout="column">
+      <!-- Short Description -->
+      <mat-form-field>
+        <input matInput placeholder="Blurb" formControlName="desc_sh">
+      </mat-form-field>
 
-    <!-- Public -->
-    <!-- <div class="misc-bottom-padding">
-      <mat-label>Gender:</mat-label>
-      <mat-radio-group aria-label="Select an option" formControlName="gender">
-        <mat-radio-button value="Male">Male</mat-radio-button>
-        <mat-radio-button value="Female">Female</mat-radio-button>
-      </mat-radio-group>
-    </div> -->
+      <!-- Long Description -->
+      <mat-form-field>
+        <input matInput placeholder="Description" formControlName="desc_lg">
+      </mat-form-field> 
+
+      <!-- Public -->
+      <!-- <div class="misc-bottom-padding">
+        <mat-label>Gender:</mat-label>
+        <mat-radio-group aria-label="Select an option" formControlName="gender">
+          <mat-radio-button value="Male">Male</mat-radio-button>
+          <mat-radio-button value="Female">Female</mat-radio-button>
+        </mat-radio-group>
+      </div> -->
 
 
-    <!-- Class -->
-    <!-- <mat-form-field>
-      <mat-label>Grade</mat-label>
-      <mat-select [(value)]="selected" formControlName="grade">
-        <mat-option [value]="gradeArray" *ngFor="let gradeArray of GradeArray">{{gradeArray}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field> -->
+      <!-- Class -->
+      <!-- <mat-form-field>
+        <mat-label>Grade</mat-label>
+        <mat-select [(value)]="selected" formControlName="grade">
+          <mat-option [value]="gradeArray" *ngFor="let gradeArray of GradeArray">{{gradeArray}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+    </span>
+
+    <span fxFlex="40" class="pages-pane" fxLayout="column">
+
+      <app-upload (urls)="onUrls($event)"></app-upload>
+
+    </span>
+
+    <span fxFlex class="spacer"></span>
+   
 
 
     <!-- Submit -->

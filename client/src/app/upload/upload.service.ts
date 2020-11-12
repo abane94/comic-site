@@ -10,9 +10,13 @@ const url = 'api/upload/mult';
 export class UploadService {
   constructor(private http: HttpClient) {}
 
-  public upload(files: Set<File>): {[key:string]:Observable<number>} {
+  public upload(files: Set<File>): [{[key:string]:Observable<number>}, Promise<string[]>] {
     // this will be the our resulting map
     const status = {};
+    let urlsRes: (value?: string[] | PromiseLike<string[]>) => void;
+    const urlsP = new Promise<string[]>((resolve, reject) => {
+      urlsRes = resolve;
+    });
 
     files.forEach(file => {
       // create a new multipart-form for every file
@@ -28,8 +32,10 @@ export class UploadService {
       // create a new progress-subject for every file
       const progress = new Subject<number>();
 
+
       // send the http-request and subscribe for progress-updates
       this.http.request(req).subscribe(event => {
+        console.log('http event : ' + event.type);
         if (event.type === HttpEventType.UploadProgress) {
 
           // calculate the progress percentage
@@ -37,11 +43,15 @@ export class UploadService {
 
           // pass the percentage into the progress-stream
           progress.next(percentDone);
+        } else if (event.type === HttpEventType.Response) {
+          // here event.body will contain exactly what was sent by the server, should include list of file urls
+          urlsRes(event.body as string[]);
+          progress.complete();
         } else if (event instanceof HttpResponse) {
 
           // Close the progress-stream if we get an answer form the API
           // The upload is complete
-          progress.complete();
+          // progress.complete();
         }
       });
 
@@ -52,6 +62,6 @@ export class UploadService {
     });
 
     // return the map of progress.observables
-    return status;
+    return [status, urlsP];
   }
 }

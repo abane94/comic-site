@@ -17,6 +17,8 @@ export class DialogComponent{
   public uploading = false;
   public uploadSuccessful = false;
 
+  private urlsP: Promise<string[]>;
+
   constructor(public dialogRef: MatDialogRef<DialogComponent>, public uploadService: UploadService) {}
 
   @ViewChild('file') file;
@@ -38,14 +40,14 @@ export class DialogComponent{
   closeDialog() {
     // if everything was uploaded already, just close the dialog
     if (this.uploadSuccessful) {
-      return this.dialogRef.close();
+      return this.dialogRef.close({ event: 'close', data: this.urlsP });
     }
 
     // set the component state to "uploading"
     this.uploading = true;
 
     // start the upload and save the progress map
-    this.progress = this.uploadService.upload(this.files);
+    [this.progress, this.urlsP] = this.uploadService.upload(this.files);
 
     // convert the progress map into an array
     let allProgressObservables = [];
@@ -67,6 +69,7 @@ export class DialogComponent{
 
     // When all progress-observables are completed...
     forkJoin(allProgressObservables).subscribe(end => {
+      console.log(end);
       // ... the dialog can be closed again...
       this.canBeClosed = true;
       this.dialogRef.disableClose = false;
@@ -76,6 +79,8 @@ export class DialogComponent{
 
       // ... and the component is no longer uploading
       this.uploading = false;
+
+      this.dialogRef.close({ event: 'close', data: this.urlsP });
     });
   }
 }

@@ -14,12 +14,21 @@ export class BookEditorComponent implements OnInit {
   addOnBlur = true;
   form: FormGroup;
 
+  
+  pics: string[] = [];
+
   constructor(public fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.reactiveForm()
   }
 
+  
+  onUrls($event) {
+    console.log($event);
+    this.pics.push(...$event)
+  }
+  
   /* Reactive form */
   reactiveForm() {
     this.form = this.fb.group({
