@@ -1,4 +1,5 @@
-<form [formGroup]="form" (ngSubmit)="submitForm()" novalidate fxLayout="row">
+<form [formGroup]="form" (ngSubmit)="submitForm()" novalidate >
+  <div fxLayout="row">
     <span fxFlex="10" class="spacer"></span>
 
     <span fxFlex="40" class="details-pane" novalidate fxLayout="column">
@@ -36,6 +37,7 @@
 
       <app-upload (urls)="onUrls($event)"></app-upload>
 
+
     </span>
 
     <span fxFlex class="spacer"></span>
@@ -46,5 +48,11 @@
     <div>
       <button mat-flat-button color="primary">Submit</button>
     </div>
+
+  </div>
+
+  <div fxLayout="row">
+      <app-orderer></app-orderer>
+  </div>
 
   </form>

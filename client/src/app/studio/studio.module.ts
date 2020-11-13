@@ -7,15 +7,18 @@ import { MaterialModule } from '../material.module';
 
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import { BookEditorComponent } from './book-editor/book-editor.component';
 import { UploadModule } from '../upload/upload.module';
+import { OrdererComponent } from './orderer/orderer.component';
 
 
 
 @NgModule({
-  declarations: [StudioHomeComponent, BookEditorComponent],
+  declarations: [StudioHomeComponent, BookEditorComponent, OrdererComponent],
   imports: [
     CommonModule,
+    DragDropModule,
     StudioRoutingModule,
     MatIconModule,
     FlexLayoutModule,
