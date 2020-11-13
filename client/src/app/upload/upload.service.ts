@@ -17,6 +17,8 @@ export class UploadService {
     const urlsP = new Promise<string[]>((resolve, reject) => {
       urlsRes = resolve;
     });
+    const urls: string[] = []
+    let finished = files.size;
 
     files.forEach(file => {
       // create a new multipart-form for every file
@@ -45,7 +47,12 @@ export class UploadService {
           progress.next(percentDone);
         } else if (event.type === HttpEventType.Response) {
           // here event.body will contain exactly what was sent by the server, should include list of file urls
-          urlsRes(event.body as string[]);
+          // urlsRes(event.body as string[]);
+          urls.push(...event.body as string[]);
+          finished--;
+          if (!finished) {
+            urlsRes(urls);
+          }
           progress.complete();
         } else if (event instanceof HttpResponse) {
 
