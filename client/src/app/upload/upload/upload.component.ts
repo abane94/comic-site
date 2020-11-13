@@ -18,10 +18,13 @@ export class UploadComponent {
     dialogRef.afterClosed().subscribe(evt => {
       console.log('Dialog closed');
       console.log(evt);
-      evt.data.then(urls => {
-        console.log(urls);
-        this.urls.emit(urls);
-      })
+      if (evt && evt.data) {
+        evt.data.then(urls => {
+          console.log(urls);
+          this.urls.emit(urls);
+        });
+      }
+      
     })
   }
 }
