@@ -1,7 +1,7 @@
-<div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" [cdkDropListData]="movies" style="margin:10px">
-    <div class="example-box noselect" *ngFor="let movie of movies" cdkDrag>
-        <!-- {{movie.title}} -->
-        <img  [src]="movie.poster" [alt]="movie.title" style="width: 50%;">
+<div cdkDropList [cdkDropListOrientation]="isLandscape ? 'horizontal' : 'vertical'" class="example-list" (cdkDropListDropped)="drop($event)" [cdkDropListData]="val" style="margin:10px">
+    <div class="example-box noselect" *ngFor="let item of val" cdkDrag>
+        <div><img  [src]="item.img" [alt]="item.text" style="width: 40%;"></div>
+        <div>{{item.text}}</div>
         <!-- <img *cdkDragPreview [src]="movie.poster" [alt]="movie.title"> -->
     </div>
 </div>

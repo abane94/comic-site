@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-book-editor',
@@ -14,8 +14,20 @@ export class BookEditorComponent implements OnInit {
   addOnBlur = true;
   form: FormGroup;
 
-  
+
   pics: string[] = [];
+
+  get picsLength () {
+    return this.pics.length;
+  }
+
+  get itemsToOrder() {
+    return this.pics.map(url => ({
+      img: url,
+      text: url.substring(url.lastIndexOf('/')+1),
+      value: url
+    }));
+  }
 
   constructor(public fb: FormBuilder) {}
 
@@ -23,25 +35,34 @@ export class BookEditorComponent implements OnInit {
     this.reactiveForm()
   }
 
-  
+
   onUrls($event) {
     console.log($event);
-    this.pics.push(...$event)
+    // this.pics.push(...$event.map(url => ({img: url, text: url.substring(url.lastIndexOf('/')+1)})))
+    this.pics.push(...$event);
+    this.form.controls['pages'].setValue(this.itemsToOrder);
   }
-  
+
   /* Reactive form */
   reactiveForm() {
     this.form = this.fb.group({
+      title: [''],
+      singleBook: [true],
+      thumb_lg: new FormControl({value: '', disabled: this.picsLength}),
       desc_sh: [''],
       desc_lg: [''],
       // gender: ['Male'],
       // dob: [''],      
       // grade: [''],
       // subjects: [this.SubjectsArray]
+      pages: [this.itemsToOrder || []]
     })
   }
 
-  submitForm() {}
+  submitForm() {
+    console.log('submit');
+    console.log(this.form.value);
+  }
 
 }
 

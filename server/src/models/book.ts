@@ -1,5 +1,7 @@
 export interface Book {
     id?: number;
+    title?: string;
+    singleBook?: boolean;
     thumb_lg: string;
     desc_sh: string;
     desc_lg?: string;

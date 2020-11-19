@@ -3,6 +3,27 @@
     <span fxFlex="10" class="spacer"></span>
 
     <span fxFlex="40" class="details-pane" novalidate fxLayout="column">
+      <!-- Title -->
+      <mat-form-field>
+        <input matInput placeholder="Title" formControlName="title">
+      </mat-form-field>
+
+      <!-- Single Book ? -->
+      <!-- <mat-form-field> -->
+        <!-- <mat-checkbox class="" formControlName="singleBook">Disabled</mat-checkbox> -->
+        <mat-checkbox formControlName="singleBook">Display as Single Book</mat-checkbox>
+      <!-- </mat-form-field> -->
+
+      <!-- Thumb -->
+      <mat-form-field appearance="fill">
+        <mat-label>Thumb Nail</mat-label>
+        <mat-select formControlName="thumb_lg">
+          <mat-option *ngFor="let pic of pics" [value]="pic.substring(pic.lastIndexOf('/')+1)"></mat-option>
+        </mat-select>
+        <!-- TODO: add upload option here -->
+        <!-- TODO display the image of the thumbnail -->
+      </mat-form-field>
+
       <!-- Short Description -->
       <mat-form-field>
         <input matInput placeholder="Blurb" formControlName="desc_sh">
@@ -46,13 +67,13 @@
 
     <!-- Submit -->
     <div>
-      <button mat-flat-button color="primary">Submit</button>
+      <input type="submit" color="primary">
     </div>
 
   </div>
 
   <div fxLayout="row">
-      <app-orderer></app-orderer>
+      <app-orderer formControlName="pages"></app-orderer>
   </div>
 
   </form>
