@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AppController } from './app.controller';
@@ -10,6 +10,7 @@ import { FeedModule } from './feed/feed.module';
 import { UploadModule } from './upload/upload.module';
 import { DataModule } from './data/data.module';
 import configProvider from './config-provider';
+import { ApplyUserMiddleware } from './user/applyUser.middleware';
 
 @Module({
   imports: [
@@ -33,4 +34,13 @@ import configProvider from './config-provider';
     configProvider
   ]
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    console.log('Configuring Module');
+    consumer
+      .apply(ApplyUserMiddleware)
+      .forRoutes('*');
+    }
+
+}
+// export class AppModule{}

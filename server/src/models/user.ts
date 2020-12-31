@@ -1,9 +1,13 @@
 export interface User {
-    id: number;
+    _id?: number;
     first_name: string;
     last_name:string;
     profile_thumb: string;
     token: string;
+    email?: string;
+
+    gToken?: string;
+    gid?: string;
 }
 
 // export class User implements iUser {

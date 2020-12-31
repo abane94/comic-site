@@ -11,6 +11,8 @@ import { SocialUser } from "angularx-social-login";
 import {Component, Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
+// TODO: prevent multiple login/regisiter attempts from happening concurrently, this probably only happened due to backend breakpoints, but would still be good to block
+
 
 
 @Injectable()
@@ -20,8 +22,10 @@ export class AuthenticationService implements OnInit {
     // public user_details: User;
     private usersUrl = 'api/user/';
 
-    user: SocialUser;
+    socialUser: SocialUser;
+    user: User;
     private loggedIn: boolean;
+    private token: string;
 
     constructor(private http: HttpService, private authService: AuthService, private dialog: MatDialog) {
         this.authService.authState.subscribe((user) => {
@@ -30,20 +34,24 @@ export class AuthenticationService implements OnInit {
                     id_token: user['idToken']
                 }).subscribe(userData => {
                     // return from the sever
-                    if (!userData) {
+                    if (!userData || (userData && !userData._id)) {
                         // ask to register
-                        this.openDialog(user);
+                        this.openDialog(userData);
                     } else {
                         console.log('Authentication service says: ' + userData);
                         console.log('Returned to auth service');
                         this.authService.signOut();
-                        this.user = user;
+                        this.user = userData;
+                        this.token = this.user.token;
                         this.loggedIn = (user != null);
                     }
                 })
             }
-            debugger;
           });
+    }
+
+    public getToken(): string {
+      return this.token;
     }
 
     private handleError(error: any): void {
@@ -121,6 +129,7 @@ export class AuthenticationService implements OnInit {
                 // this.authService.signOut();
                 this.user = res;
                 this.loggedIn = (res != null);
+                this.token = this.user.token;
             // }
           });
           // logic to register new user

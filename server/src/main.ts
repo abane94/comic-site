@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
+console.log('Server starting');
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(function logger(req, res, next) {

@@ -10,6 +10,19 @@ export class BookController {
 
     @Post()
     create(@Body() createBook: Book) {
+        console.log(createBook);
+        // any checking of fields or privledges (beyond what would be caught my the middlewares)
+        // add the user as the owner/creator of the book
+        // should there be any unique keys on the collection? check those
+        // insert
+        
+        // THOUGHTS
+            // should title be unique, probably there could be a possiblity of wanting the same name for issues in derferent series, if the tite is simple
+            // the above is wrong, title should not be unique, there is just no need
+            // the need for namescaping can be accomplished with a id of the book within the users id, so they would be short for url use
+            // www.<>.com/<user>/b<id>  -- b = book
+            // www.lixes.com/324ba34/b1  // 3bill (> than FB uses) can be done with 8 hex chars
+            // www.<>.com/<user>/s<id>/<iss#>  // issues must be a number but could be negative,zero, decimal...
         return 'Not Implemented';
     }
 

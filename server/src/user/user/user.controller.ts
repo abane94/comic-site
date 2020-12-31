@@ -34,7 +34,7 @@ export class UserController {
         id = +id;
         for (let i = 0; i < this.user_list.length; i++) {
             let b = this.user_list[i];
-            if (b.id === id) {
+            if (b._id === id) {
                 return b;
             }
         }
@@ -53,7 +53,8 @@ export class UserController {
 
     @Post('/auth')
     async authenticate(@Body() body) {
-        return this.auth.authenticate(body);
+        // TODO: specify that this is for google
+        return this.auth.authenticateGoogle(body);
     }
 
 
@@ -62,7 +63,7 @@ export class UserController {
         'last_name': 'Husanu',
         'profile_thumb': 'some location',
         'token': '12345',
-        'id': 1
+        '_id': 1
     };
 
     private user2: User = {
@@ -70,7 +71,7 @@ export class UserController {
         'last_name': 'Husanu',
         'profile_thumb': 'some location',
         'token': '12345',
-        'id': 2
+        '_id': 2
     };
 
     private user3: User = {
@@ -78,7 +79,7 @@ export class UserController {
         'last_name': 'Husanu',
         'profile_thumb': 'some location',
         'token': '12345',
-        'id': 3
+        '_id': 3
     };
 
     private user4: User = {
@@ -86,7 +87,7 @@ export class UserController {
         'last_name': '',
         'profile_thumb': 'some location',
         'token': '12345',
-        'id': 4
+        '_id': 4
     };
 
     private user5: User = {
@@ -94,7 +95,7 @@ export class UserController {
         'last_name': 'Muffin',
         'profile_thumb': 'some location',
         'token': '12345',
-        'id': 5
+        '_id': 5
     };
 
     private user_list = [this.user1, this.user2, this.user3, this.user4, this.user5];

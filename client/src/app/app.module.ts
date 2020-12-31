@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -55,6 +55,7 @@ import { GoogleLoginProvider } from "angularx-social-login";
 import { environment } from '../environments/environment';
 
 import { SharedModule } from './shared/shared.module';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 
 let config = new AuthServiceConfig([{
   id: GoogleLoginProvider.PROVIDER_ID,
@@ -122,6 +123,11 @@ export function provideConfig() {
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
+    },
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi   : true,
     }
   ],
   bootstrap: [AppComponent]
