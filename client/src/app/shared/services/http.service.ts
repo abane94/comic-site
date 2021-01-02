@@ -15,8 +15,8 @@ export class HttpService implements OnInit {
         return this.http.get(url, options);
     }
 
-    public post(url: string, body: Object, options?: object): Observable<any> {
+    public post<T>(url: string, body: Object, options?: object): Observable<T> {
         console.log('http service post call');
-        return this.http.post(url, body, options);
+        return this.http.post<T>(url, body, options);
     }
 }

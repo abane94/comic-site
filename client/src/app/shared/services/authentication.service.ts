@@ -30,7 +30,7 @@ export class AuthenticationService implements OnInit {
     constructor(private http: HttpService, private authService: AuthService, private dialog: MatDialog) {
         this.authService.authState.subscribe((user) => {
             if (user) {
-                this.http.post(this.usersUrl + 'auth/', {
+                this.http.post<User>(this.usersUrl + 'auth/', {
                     id_token: user['idToken']
                 }).subscribe(userData => {
                     // return from the sever
@@ -122,7 +122,7 @@ export class AuthenticationService implements OnInit {
           console.log('The dialog was closed');
           console.log(result);
           console.log('TODO register new user');
-          this.http.post(this.usersUrl, {...data, ...result}).subscribe((res) => {
+          this.http.post<User>(this.usersUrl, {...data, ...result}).subscribe((res) => {
             // if (res) {
                 console.log('Authentication service says: ' + res);
                 console.log('Returned to auth service');

@@ -20,13 +20,22 @@ export class ContentService {
 
   // CONTENT BOOK
 
-  // public newBook(): number{
-  //   // create a new book
-  //   // post : api/v1/content/book/
-  //   // payload : new book details
-  //   // this might take more than this b/c the page arraging and uploading
-  //   return 0;
-  // }
+  public newBook(book: Book): Observable<any> {
+    // create a new book
+    // post : api/v1/content/book/
+    // payload : new book details
+    // this might take more than this b/c the page arraging and uploading
+
+    const ob = this.http.post(this.booksUrl, book);
+    ob.subscribe (
+      resp => {},
+      err => {
+        this.handleError(err);
+      }
+    );
+    return ob;
+    // return 0;
+  }
 
   public getAllBooks(): object {
     // possiblaly not needed

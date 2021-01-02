@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { AuthenticationService } from '../../shared/services/authentication.service';
+import { ContentService } from '../../shared/services/content.service';
 
 @Component({
   selector: 'app-book-editor',
@@ -29,7 +31,7 @@ export class BookEditorComponent implements OnInit {
     }));
   }
 
-  constructor(public fb: FormBuilder) {}
+  constructor(public fb: FormBuilder, private auth: AuthenticationService, private content: ContentService) {}
 
   ngOnInit(): void {
     this.reactiveForm()
@@ -55,13 +57,20 @@ export class BookEditorComponent implements OnInit {
       // dob: [''],      
       // grade: [''],
       // subjects: [this.SubjectsArray]
-      pages: [this.itemsToOrder || []]
+      pages: [this.itemsToOrder || []],
+      creator_id: [this.auth.user._id]
     })
   }
 
   submitForm() {
     console.log('submit');
     console.log(this.form.value);
+    // TODO: logic will be needed for the whole editor to differential new vs update (editing existing). This will be needed here for PUT vs POST
+    this.content.newBook(this.form.value).subscribe(
+      resp => {
+        console.log(resp);
+      },
+    );
   }
 
 }
