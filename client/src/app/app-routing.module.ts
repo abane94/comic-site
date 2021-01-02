@@ -7,6 +7,7 @@ import { ProfilePageComponent } from './profile/profile-page/profile-page.compon
 
 import { BookViewComponent } from './book/book-view/book-view.component';
 import { BookDetailsComponent } from './book/book-details/book-details.component';
+import { StudioGuard } from './shared/guards/studio.guard';
 
 // import { DashboardComponent }   from './dashboard.component';
 
@@ -19,7 +20,7 @@ const routes: Routes = [
     { path: 'profile/:id', component: ProfilePageComponent },
     { path: 'book/:id', component: BookViewComponent },
     { path: 'book/details/:id', component: BookDetailsComponent},
-    { path: 'studio', loadChildren: () => import('./studio/studio.module').then(m => m.StudioModule) }
+    { path: 'studio', loadChildren: () => import('./studio/studio.module').then(m => m.StudioModule), canActivate: [StudioGuard] }
 ];
 
 @NgModule({
