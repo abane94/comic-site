@@ -13,7 +13,7 @@ export class StudioGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     // return true;
-    return this.auth.user ? true : this.router.createUrlTree(['/']);  // TODO: should be a creator
+    return this.auth.isCreator() || this.router.createUrlTree(['/']);
   }
   
 }

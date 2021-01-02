@@ -54,6 +54,14 @@ export class AuthenticationService implements OnInit {
       return this.token;
     }
 
+    public isAuthenticated() {
+      return !!this.user;
+    }
+
+    public isCreator() {
+      return this.user && this.user.isCreator;
+    }
+
     private handleError(error: any): void {
         console.error('An error ocurred in AuthenticationService', error); // for demo purposes only
     }

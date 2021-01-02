@@ -5,6 +5,7 @@ export interface User {
     profile_thumb: string;
     token: string;
     email?: string;
+    isCreator: boolean
 
     gToken?: string;
     gid?: string;

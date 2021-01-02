@@ -5,7 +5,7 @@
         <a routerLink="/home"><button mat-button>Home</button></a>
         <a routerLink="/feed"><button mat-button>Feed</button></a>
         <button mat-button (click)="toggleSideBar.emit()">Toggle</button>
-        <a routerLink="/studio"><button mat-button>Studio<mat-icon aria-hidden="false">create</mat-icon></button></a>
+        <a *ngIf="auth.isCreator()" routerLink="/studio"><button mat-button>Studio<mat-icon aria-hidden="false">create</mat-icon></button></a>
         <span class="spacer"></span>
 
         <mat-form-field class="example-form-field" color="accent">
