@@ -59,12 +59,12 @@ export class AuthService {
         });
     }
 
-    getUserFromGoogle(ticket: LoginTicket): User {
+    getUserFromGoogle(ticket: LoginTicket): Omit<User, '_id'> {
         const payload = ticket.getPayload();
-        const user: User =  {
-            first_name: payload.given_name,
-            last_name: payload.family_name,
-            profile_thumb: payload.picture,
+        const user: Omit<User, '_id'> =  {
+            givenName: payload.given_name,
+            familyName: payload.family_name,
+            profilePic: payload.picture,
             token: '',
 
             email: payload.email,

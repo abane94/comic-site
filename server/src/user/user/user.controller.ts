@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Put, Param, Delete, Query } from '@nestjs/common';
+import { ObjectId } from 'mongodb';
 import { User } from '../../models';
 import { AuthService } from '../auth.service';
 
@@ -18,14 +19,14 @@ export class UserController {
     findAll(@Query() query) {
         // TODO: filter by query
         console.log(query);
-        const firstName = query.first_name;
+        const givenName = query.givenName;
         for (let i = 0; i < this.user_list.length; i++) {
-            let b = this.user_list[i];
-            if (b.first_name.toUpperCase() === firstName.toUpperCase()) {
+            const b = this.user_list[i];
+            if (b.givenName.toUpperCase() === givenName.toUpperCase()) {
                 return b;
             }
         }
-        throw `User with name ${firstName} not found`;
+        throw `User with name ${givenName} not found`;
         // return this.user_list;
     }
 
@@ -33,7 +34,7 @@ export class UserController {
     findOne(@Param('id') id) {
         id = +id;
         for (let i = 0; i < this.user_list.length; i++) {
-            let b = this.user_list[i];
+            const b = this.user_list[i];
             if (b._id === id) {
                 return b;
             }
@@ -58,44 +59,44 @@ export class UserController {
     }
 
 
-    private user1: User = {
-        'first_name': 'Aris',
-        'last_name': 'Husanu',
-        'profile_thumb': 'some location',
+    private user1: Omit<User, 'email'> = {
+        'givenName': 'Aris',
+        'familyName': 'Husanu',
+        'profilePic': 'some location',
         'token': '12345',
-        '_id': 1
+        '_id': new ObjectId()
     };
 
-    private user2: User = {
-        'first_name': 'Sage',
-        'last_name': 'Husanu',
-        'profile_thumb': 'some location',
+    private user2: Omit<User, 'email'> = {
+        'givenName': 'Sage',
+        'familyName': 'Husanu',
+        'profilePic': 'some location',
         'token': '12345',
-        '_id': 2
+        '_id': new ObjectId()
     };
 
-    private user3: User = {
-        'first_name': 'Neoh',
-        'last_name': 'Husanu',
-        'profile_thumb': 'some location',
+    private user3: Omit<User, 'email'> = {
+        'givenName': 'Neoh',
+        'familyName': 'Husanu',
+        'profilePic': 'some location',
         'token': '12345',
-        '_id': 3
+        '_id': new ObjectId()
     };
 
-    private user4: User = {
-        'first_name': 'Mclovin',
-        'last_name': '',
-        'profile_thumb': 'some location',
+    private user4: Omit<User, 'email'> = {
+        'givenName': 'Mclovin',
+        'familyName': '',
+        'profilePic': 'some location',
         'token': '12345',
-        '_id': 4
+        '_id': new ObjectId()
     };
 
-    private user5: User = {
-        'first_name': 'Stud',
-        'last_name': 'Muffin',
-        'profile_thumb': 'some location',
+    private user5: Omit<User, 'email'> = {
+        'givenName': 'Stud',
+        'familyName': 'Muffin',
+        'profilePic': 'some location',
         'token': '12345',
-        '_id': 5
+        '_id': new ObjectId()
     };
 
     private user_list = [this.user1, this.user2, this.user3, this.user4, this.user5];

@@ -7,22 +7,23 @@
   </div>
 
   <div fxLayout="row" fxLayoutAlign="space-around stretch" class="column column-middle">
-    <img src="{{book.thumb_lg}}"  height="250px"/>
+    <img src="{{book.coverUrl}}"  height="250px"/>
 
     <div fxLayout="column" fxLayoutAlign="space-evenly">
-      <a routerLink="/book/{{ book.id }}">
+      <a routerLink="/book/{{ book._id }}">
         <button mat-raised-button color="primary">Read Now</button>
       </a>
-      <div fxLayout="row"fxLayoutAlign="space-between">
+      <!-- TODO: Query and show all series this book is available in -->
+      <!-- <div fxLayout="row"fxLayoutAlign="space-between">
         <h1>{{ book.series_name }}</h1>
         <h1>{{ book.iss_num }}</h1>
-      </div>
+      </div> -->
 
-      <h2>{{ book.creator_name }}</h2>
+      <h2>{{ book.creatorName }}</h2>
 
       <div *ngIf="book.pages">{{ book.pages.length }} page{{ book.pages.length + 1 ? 's': '' }}</div>
 
-      <h4>{{ book.desc_sh }}</h4>
+      <h4>{{ book.shortDesc }}</h4>
     </div>
   </div>
 

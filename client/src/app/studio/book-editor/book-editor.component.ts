@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Book } from 'src/models';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { ContentService } from '../../shared/services/content.service';
 
+type BookFormObj = {
+  [P in keyof Book]?: any;
+}
 @Component({
   selector: 'app-book-editor',
   templateUrl: './book-editor.component.html',
@@ -47,19 +51,21 @@ export class BookEditorComponent implements OnInit {
 
   /* Reactive form */
   reactiveForm() {
-    this.form = this.fb.group({
+    // pulling this out of the fb.group(..) call allows for typechecking against the fields in the user model
+    const bookFormObj: BookFormObj = {
       title: [''],
       singleBook: [true],
-      thumb_lg: new FormControl({value: '', disabled: this.picsLength}),
-      desc_sh: [''],
-      desc_lg: [''],
+      coverUrl: new FormControl({value: '', disabled: this.picsLength}),
+      shortDesc: [''],
+      longDesc: [''],
       // gender: ['Male'],
-      // dob: [''],      
+      // dob: [''],
       // grade: [''],
       // subjects: [this.SubjectsArray]
       pages: [this.itemsToOrder || []],
-      creator_id: [this.auth.user._id]
-    })
+      creatorId: [this.auth.user._id]
+    };
+    this.form = this.fb.group(bookFormObj);
   }
 
   submitForm() {
@@ -74,16 +80,3 @@ export class BookEditorComponent implements OnInit {
   }
 
 }
-
-// id?: number;
-// thumb_lg: string;
-// desc_sh: string;
-// desc_lg?: string;
-// series_name: string;
-// series_id: number;
-// creator_id: number;
-// creator_name: string;
-// pages: Array<iPageInfo>;
-// iss_num: number;
-
-// isBook: true;

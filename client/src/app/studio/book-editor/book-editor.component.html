@@ -17,7 +17,7 @@
       <!-- Thumb -->
       <mat-form-field appearance="fill">
         <mat-label>Thumb Nail</mat-label>
-        <mat-select formControlName="thumb_lg">
+        <mat-select formControlName="coverUrl">
           <mat-option *ngFor="let pic of pics" [value]="pic.substring(pic.lastIndexOf('/')+1)"></mat-option>
         </mat-select>
         <!-- TODO: add upload option here -->
@@ -26,13 +26,13 @@
 
       <!-- Short Description -->
       <mat-form-field>
-        <input matInput placeholder="Blurb" formControlName="desc_sh">
+        <input matInput placeholder="Blurb" formControlName="shortDesc">
       </mat-form-field>
 
       <!-- Long Description -->
       <mat-form-field>
-        <input matInput placeholder="Description" formControlName="desc_lg">
-      </mat-form-field> 
+        <input matInput placeholder="Description" formControlName="longDesc">
+      </mat-form-field>
 
       <!-- Public -->
       <!-- <div class="misc-bottom-padding">
@@ -62,7 +62,7 @@
     </span>
 
     <span fxFlex class="spacer"></span>
-   
+
 
 
     <!-- Submit -->

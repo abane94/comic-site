@@ -1,20 +1,21 @@
 
 <mat-card *ngIf="card_data" (click)="link()" class="content-card">
-    <span *ngIf="card_data.thumb_lg" class="block">
-        <img mat-card-image src="{{card_data.thumb_lg}}" alt="Card image cap" class="content-card_img">  <!-- TODO: check databinding -->
+    <span *ngIf="card_data.coverUrl" class="block">
+        <img mat-card-image src="{{card_data.coverUrl}}" alt="Card image cap" class="content-card_img">  <!-- TODO: check databinding -->
     </span>
-    <span *ngIf="!card_data.thumb_lg" class="block">
+    <span *ngIf="!card_data.coverUrl" class="block">
       <img mat-card-image src="data/notFound.png" alt="Card image cap" class="content-card_img">
     </span>
 
     <mat-card-content>
-        <span class="title">{{card_data.series_name}}</span>
+        <!-- <span class="title">{{card_data.series_name}}</span>
         <span *ngIf="card_data.iss_num" class="iss_num">
             {{card_data.iss_num}}
-        </span>
+        </span> -->
+        <span *ngIf="card_data.title" class="title">{{ card_data.title }}</span>
 
       <p class="card-text">
-        {{card_data.creator_name}}
+        {{card_data.creatorName}}
       </p>
     </mat-card-content>
 

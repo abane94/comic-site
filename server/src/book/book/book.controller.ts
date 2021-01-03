@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Put, Param, Delete, Query, Inject } from '@nestjs/common';
 import { Book } from '../../models';
 import * as constants from '../../constants';
-import { Collection } from 'mongodb';
+import { Collection, ObjectId } from 'mongodb';
 
 @Controller('book')
 export class BookController {
@@ -15,7 +15,7 @@ export class BookController {
         // add the user as the owner/creator of the book
         // should there be any unique keys on the collection? check those
         // insert
-        
+
         // THOUGHTS
             // should title be unique, probably there could be a possiblity of wanting the same name for issues in derferent series, if the tite is simple
             // the above is wrong, title should not be unique, there is just no need
@@ -36,8 +36,8 @@ export class BookController {
     findOne(@Param('id') id) {
         id = +id;
         for (let i = 0; i < this.book_list.length; i++) {
-            let b = this.book_list[i];
-            if (b.id === id) {
+            const b = this.book_list[i];
+            if (b._id === id) {
                 return b;
             }
         }
@@ -55,54 +55,54 @@ export class BookController {
     }
 
 
-    private book1: Book = {
-        thumb_lg: 'assets/data/notFound.png',
-        desc_sh: 'This is the coolest fake comicbook and that doesnt exist',
-        series_name: 'Fake it till you make it',
-        iss_num: 1,
-        creator_name: 'Fake Comics',
-        creator_id: 123456,
-        series_id: 1234,
+    private book1: Omit<Book, 'maturityRating' | 'title' | 'longDesc' | 'viewAccess'> = {
+        coverUrl: 'assets/data/notFound.png',
+        shortDesc: 'This is the coolest fake comicbook and that doesnt exist',
+        // series_name: 'Fake it till you make it',
+        // iss_num: 1,
+        creatorName: 'Fake Comics',
+        creatorId: '123456',
+        // series_id: 1234,
         pages: [],
         isBook: true,
-        id: 1,   // the in memory service needs an 'id'
+        _id: new ObjectId(),   // the in memory service needs an 'id'
     };
 
-    private book2: Book = {
-        thumb_lg: 'assets/data/notFound.png',
-        desc_sh: 'This is the coolest fake comicbook and that doesnt exist',
-        series_name: 'Fake it till you make it',
-        iss_num: 2,
-        creator_name: 'Fake Comics',
-        creator_id: 123456,
-        series_id: 1234,
+    private book2: Omit<Book, 'maturityRating' | 'title' | 'longDesc' | 'viewAccess'> = {
+        coverUrl: 'assets/data/notFound.png',
+        shortDesc: 'This is the coolest fake comicbook and that doesnt exist',
+        // series_name: 'Fake it till you make it',
+        // iss_num: 2,
+        creatorName: 'Fake Comics',
+        creatorId: '123456',
+        // series_id: 1234,
         pages: [],
         isBook: true,
-        id: 2,
+        _id: new ObjectId(),
     };
 
-    private book3: Book = {
-        thumb_lg: 'assets/data/notFound.png',
-        desc_sh: 'This is the coolest fake comicbook and that doesnt exist',
-        series_name: 'Fake it till you make it',
-        iss_num: 3,
-        creator_name: 'Fake Comics',
-        creator_id: 123456,
-        series_id: 1234,
+    private book3: Omit<Book, 'maturityRating' | 'title' | 'longDesc' | 'viewAccess'> = {
+        coverUrl: 'assets/data/notFound.png',
+        shortDesc: 'This is the coolest fake comicbook and that doesnt exist',
+        // series_name: 'Fake it till you make it',
+        // iss_num: 3,
+        creatorName: 'Fake Comics',
+        creatorId: '123456',
+        // series_id: 1234,
         pages: [],
         isBook: true,
-        id: 3,
+        _id: new ObjectId(),
     };
 
-    private book4: Book = {
-        thumb_lg: 'https://2.bp.blogspot.com/JafIRnQJ1T2NKRT_XDXWfavYfKUDcrSF32C_lQbv_hMv5f_pwm1V31y30MU9V-pISwA4zH92mAbC=s400',
-        desc_sh: 'Hellboy seeds of destruction issue 1',
-        series_name: 'Hellboy',
-        iss_num: 1,
-        creator_name: 'Dark Horse',
-        creator_id: 123456,
-        series_id: 4321,
-        id: 4,
+    private book4: Omit<Book, 'maturityRating' | 'title' | 'longDesc' | 'viewAccess'> = {
+        coverUrl: 'https://2.bp.blogspot.com/JafIRnQJ1T2NKRT_XDXWfavYfKUDcrSF32C_lQbv_hMv5f_pwm1V31y30MU9V-pISwA4zH92mAbC=s400',
+        shortDesc: 'Hellboy seeds of destruction issue 1',
+        // series_name: 'Hellboy',
+        // iss_num: 1,
+        creatorName: 'Dark Horse',
+        creatorId: '123456',
+        // series_id: 4321,
+        _id: new ObjectId(),
         isBook: true,
         pages: [
         {
