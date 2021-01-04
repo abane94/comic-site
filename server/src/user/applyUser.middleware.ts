@@ -31,14 +31,15 @@ export class ApplyUserMiddleware implements NestMiddleware {
                 const userId = verified['_id'];// TODO verify token and get user id
                 user = await this.userCol.findOne(new ObjectId(userId));  // {_id: new ObjectId(userId)}
                 if (user) {
-                    req.body.user = user;
+                    // req.body.user = user;
+                    req['user'] = user;
                 } else {
                     console.log('Could not find user ' + req.body.user);
                 }
             } catch (e) {
                 console.warn('Could not verify user', e);
             }
-            
+
         }
         next();
     }
