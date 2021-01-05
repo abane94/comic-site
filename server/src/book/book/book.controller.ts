@@ -2,8 +2,10 @@ import { Controller, Get, Post, Body, Put, Param, Delete, Query, Inject } from '
 import { Book } from '../../models';
 import * as constants from '../../constants';
 import { Collection, ObjectId } from 'mongodb';
+import { ContentEditGuard } from '../../shared/guards/content-edit.guard';
 
 @Controller('book')
+@ContentEditGuard(constants.bookCollection)
 export class BookController {
 
     constructor(@Inject(constants.bookCollection) private bookCol: Collection<Book>) {}

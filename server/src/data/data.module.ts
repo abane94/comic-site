@@ -5,6 +5,6 @@ import * as constants from '../constants';
 
 @Module({
     providers: [configProvider, ...buildDataProviders()],
-    exports: [...constants.collections]
+    exports: [...constants.collections, 'ALL_COLLECTIONS'] // TODO: add to constants
 })
 export class DataModule {}
