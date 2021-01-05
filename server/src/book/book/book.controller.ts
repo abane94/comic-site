@@ -25,7 +25,13 @@ export class BookController {
             // www.<>.com/<user>/b<id>  -- b = book
             // www.lixes.com/324ba34/b1  // 3bill (> than FB uses) can be done with 8 hex chars
             // www.<>.com/<user>/s<id>/<iss#>  // issues must be a number but could be negative,zero, decimal...
-        return 'Not Implemented';
+
+        try {
+            return this.bookCol.insertOne(createBook);
+        } catch (e) {
+            console.warn('Error inserting book', e);
+            return {result: 'Could not insert book', detail: e}  // TODO: more unified error handling and api response
+        }
     }
 
     @Get()
@@ -47,8 +53,9 @@ export class BookController {
     }
 
     @Put(':id')
-    update(@Param('id') id, @Body() updateCatDto) {
-        throw 'Not Implemented';
+    update(@Body() updateBook: Book) {
+        const _id = updateBook._id;
+        this.bookCol.replaceOne({_id}, updateBook);
     }
 
     @Delete(':id')

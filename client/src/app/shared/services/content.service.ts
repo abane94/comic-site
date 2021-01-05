@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 
 import { Book } from '../../../models';
 
+// TODO: move the POST, PUT, and DELETE calls into a separate Studio service
+
 @Injectable()
 export class ContentService {
   private contentUrl = '';
@@ -35,6 +37,17 @@ export class ContentService {
     );
     return ob;
     // return 0;
+  }
+
+  public updateBook(book: Book) : Observable<any> {
+    const ob = this.http.put(this.booksUrl, book);
+    ob.subscribe (
+      resp => {},
+      err => {
+        this.handleError(err);
+      }
+    );
+    return ob;
   }
 
   public getAllBooks(): object {
@@ -74,7 +87,7 @@ export class ContentService {
     return ob;
   }
 
-  public getBook(bookID: number): Observable<object> {
+  public getBook(bookID: number): Observable<Book> {
     // change to return book object from book class
     // get : api/v1/content/book/{book id}
     const ob = this.http.get(this.booksUrl + bookID);

@@ -5,7 +5,8 @@ import { BookEditorComponent } from './book-editor/book-editor.component';
 
 const routes: Routes = [
     { path: '', component: StudioHomeComponent },
-    { path: 'book', component: BookEditorComponent }
+    { path: 'book', component: BookEditorComponent },
+    { path: 'book/:id', component: BookEditorComponent }
 ];
 
 @NgModule({

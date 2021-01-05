@@ -3,17 +3,23 @@ export interface Created {
     creatorName: string;
 }
 
-enum MaturityRating {
+export enum MaturityRating {
     // TODO: come up with more detailed descriptions with example that can be viewed in the editor and on its own page for view information
     // using an enum will allow for easy quries like MaturityRating < T+ (teen plus)
+
+    /** Everyone */
     E,  // For everyone
+    /** Teen */
     T,  // For those around 12-13 and up
-    'T+',  // For older teens
+    /** Teen Plus */
+    'T+',  // For older teens\
+    /** Mature */
     M,  // Mature (but not explicit) content
+    /** Explicit */
     X  // explicit content  // Currently not supported, but could in the future
 }
 
-enum ViewAccess {
+export enum ViewAccess {
     public,
     linkAccess,
     private,

@@ -3,6 +3,7 @@ import { ObjectId } from 'mongodb';
 import { BookWithoutId } from './book';
 import { SeriesWithoutId, SeriesMinimalWithoutId } from './series';
 import { UserWithoutId } from './user';
+export { MaturityRating, ViewAccess } from './helpers';
 
 interface Id {
     _id: ObjectId;
