@@ -10,9 +10,9 @@ export class HttpService implements OnInit {
 
     constructor(private http: HttpClient) {}
 
-    public get(url: string, options?: object): Observable<any> {
+    public get<T>(url: string, options?: object): Observable<T> {
         console.log('http service call');
-        return this.http.get(url, options);
+        return this.http.get<T>(url, options);
     }
 
     public post<T>(url: string, body: Object, options?: object): Observable<T> {

@@ -77,7 +77,7 @@ export class ContentService {
         query = '?' + query;
       }
     }
-    const ob = this.http.get(this.booksUrl);
+    const ob = this.http.get<Book[]>(this.booksUrl);
     ob.subscribe (
       resp => {},
       err => {
@@ -90,7 +90,7 @@ export class ContentService {
   public getBook(bookID: number): Observable<Book> {
     // change to return book object from book class
     // get : api/v1/content/book/{book id}
-    const ob = this.http.get(this.booksUrl + bookID);
+    const ob = this.http.get<Book>(this.booksUrl + bookID);
     ob.subscribe (
       resp => {},
       err => {
@@ -118,7 +118,7 @@ export class ContentService {
       }
     }
     // not available yet
-    const ob = this.http.get(this.seriesUrl + '/' + query);
+    const ob = this.http.get<object>(this.seriesUrl + '/' + query);
     ob.subscribe(
       resp => {},
       err => {
@@ -131,7 +131,7 @@ export class ContentService {
   public getSeries(seriesID: number): Observable<object> {
     // change to return series object from book class
     // get : api/v1/content/series/{series id}
-    const ob = this.http.get(this.booksUrl + seriesID);
+    const ob = this.http.get<object>(this.booksUrl + seriesID);
     ob.subscribe(
       resp => {},
       err => {

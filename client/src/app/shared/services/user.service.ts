@@ -15,7 +15,7 @@ export class UserService {
     }
 
     public getProfile(id: number): Observable<User> {
-        const ob = this.http.get(this.usersUrl + id);
+        const ob = this.http.get<User>(this.usersUrl + id);
         ob.subscribe(
             resp => {},
             err => {

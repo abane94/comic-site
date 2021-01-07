@@ -26,7 +26,7 @@ export class FeedService {
         query = '?' + query;
       }
     }
-    const ob = this.http.get(this.feedUrl);
+    const ob = this.http.get<Post[]>(this.feedUrl);
     ob.subscribe(
       resp => {},
       err => {
@@ -37,7 +37,7 @@ export class FeedService {
   }
 
   public getPost(postID: number): Observable<object> {
-    const ob = this.http.get(this.feedUrl + '/' + postID);
+    const ob = this.http.get<object>(this.feedUrl + '/' + postID);
     ob.subscribe(
       resp => {},
       err => {
