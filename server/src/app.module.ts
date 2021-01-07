@@ -11,6 +11,8 @@ import { UploadModule } from './upload/upload.module';
 import { DataModule } from './data/data.module';
 import configProvider from './config-provider';
 import { ApplyUserMiddleware } from './user/applyUser.middleware';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APIWrapInterceptor } from './shared/interceptors/api-wrap.interceptor';
 
 @Module({
   imports: [
@@ -31,7 +33,11 @@ import { ApplyUserMiddleware } from './user/applyUser.middleware';
   controllers: [AppController],
   providers: [
     AppService,
-    configProvider
+    configProvider,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: APIWrapInterceptor,
+    }
   ]
 })
 export class AppModule implements NestModule {

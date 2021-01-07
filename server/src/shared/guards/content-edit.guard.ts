@@ -4,25 +4,33 @@ import { Book, User } from '../../../src/models';
 import { Reflector } from '@nestjs/core';
 import { AllCollections } from 'src/data/data-provider-builder';
 import { Collection, ObjectId } from 'mongodb';
-
 import { applyDecorators } from '@nestjs/common';
 import { UseGuards, SetMetadata } from '@nestjs/common';
-
 import * as constants from '../../constants';
+import { Request as ERequest } from 'express';
+
+interface APIRequest<T> {
+    value: T;
+}
+
+interface Request<T> extends ERequest {
+    user: User;
+    body: APIRequest<T>
+}
 
 // this is a helper that is wrapped by the decorator below
 @Injectable()
 export class ContentEditGuardHelper implements CanActivate {
     constructor(private reflector: Reflector, @Inject(constants.bookCollection)private bookCol: Collection<Book>, @Inject('ALL_COLLECTIONS') private collections: AllCollections) { }
     async canActivate(context: ExecutionContext): Promise<boolean> {
-        const request = context.switchToHttp().getRequest();
+        const request = context.switchToHttp().getRequest<Request<Content & {_id: ObjectId}>>();
 
         // this allows the guard to function as a class level decorator or method level. if both exists the method level trumps the class level
         let collection = this.reflector.get<string>('collection', context.getHandler());
         collection = collection || this.reflector.get<string>('collection', context.getClass());
 
         const user: User = request.user;
-        const content: Content & {_id: ObjectId} = request.body;
+        const content = request.body.value;
 
         if (!content) { return true; }  // if there is no body, errors will happen else where
 
