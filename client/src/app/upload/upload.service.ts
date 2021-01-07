@@ -36,7 +36,7 @@ export class UploadService {
 
 
       // send the http-request and subscribe for progress-updates
-      this.http.request(req).subscribe(event => {
+      this.http.request<{value: string[]}>(req).subscribe(event => {
         console.log('http event : ' + event.type);
         if (event.type === HttpEventType.UploadProgress) {
 
@@ -48,7 +48,7 @@ export class UploadService {
         } else if (event.type === HttpEventType.Response) {
           // here event.body will contain exactly what was sent by the server, should include list of file urls
           // urlsRes(event.body as string[]);
-          urls.push(...event.body as string[]);
+          urls.push(...event.body.value);
           finished--;
           if (!finished) {
             urlsRes(urls);
