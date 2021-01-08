@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { MatListOption, MatSelectionList } from '@angular/material/list';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Book, MaturityRating, ViewAccess } from 'src/models';
 import { AuthenticationService } from '../../shared/services/authentication.service';
@@ -20,21 +21,24 @@ export class BookEditorComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   form: FormGroup;
-  pics: string[] = [];
+  // pics: string[] = [];
+  pics: { img: string; text: string; value: string }[] = [];
   book: Omit<Book, '_id'>;
   isEditMode = false;
+  availablePics: string[] = [];
+  @ViewChild('availablePicsList', {static: true}) list: MatSelectionList;
 
   get picsLength() {
-    return this.pics.length;
+    return this.availablePics.length;
   }
 
-  get itemsToOrder() {
-    return this.pics.map(url => ({
-      img: url,
-      text: url.substring(url.lastIndexOf('/') + 1),
-      value: url
-    }));
-  }
+  // get itemsToOrder() {
+    // return this.pics.map(url => ({
+    //   img: url,
+    //   text: url.substring(url.lastIndexOf('/') + 1),
+    //   value: url
+    // }));
+  // }
 
   constructor(
     public fb: FormBuilder,
@@ -72,10 +76,17 @@ export class BookEditorComponent implements OnInit {
 
 
   onUrls($event) {
-    console.log($event);
-    // this.pics.push(...$event.map(url => ({img: url, text: url.substring(url.lastIndexOf('/')+1)})))
-    this.pics.push(...$event);
-    this.form.controls['pages'].setValue(this.itemsToOrder);
+    this.availablePics.push(...$event);
+  }
+
+  addSelected(selection: MatListOption[]) {
+    this.pics.push(...selection.map(s => s.value).map(url => ({
+      img: url,
+      text: url.substring(url.lastIndexOf('/') + 1),
+      value: url
+    })));
+    this.form.controls['pages'].setValue(this.pics);
+    this.list.deselectAll();
   }
 
   /* Reactive form */
@@ -89,7 +100,7 @@ export class BookEditorComponent implements OnInit {
       longDesc: [this.book.longDesc],
       maturityRating: [this.book.maturityRating],
       viewAccess: [this.book.viewAccess],
-      pages: [this.itemsToOrder || []],
+      pages: [this.book.pages || []],
       creatorId: [this.auth.user._id],
       creatorName: [this.book.creatorName],
       isBook: [true]

@@ -18,7 +18,8 @@
       <mat-form-field appearance="fill">
         <mat-label>Thumb Nail</mat-label>
         <mat-select formControlName="coverUrl">
-          <mat-option *ngFor="let pic of pics" [value]="pic.substring(pic.lastIndexOf('/')+1)"></mat-option>
+          <mat-option value=""></mat-option>
+          <mat-option *ngFor="let pic of availablePics" [value]="pic"></mat-option>
         </mat-select>
         <!-- TODO: add upload option here -->
         <!-- TODO display the image of the thumbnail -->
@@ -55,7 +56,7 @@
     </span>
 
     <span fxFlex="40" class="pages-pane" fxLayout="column">
-
+      <img [src]="form.controls.coverUrl.value || ''" style="max-width: 300px;max-height: fit-content;">
       <app-upload (urls)="onUrls($event)"></app-upload>
 
 
@@ -70,6 +71,18 @@
       <input type="submit" color="primary">
     </div> -->
 
+  </div>
+
+  <div fxLayout="row">
+    <mat-selection-list #availablePicsList>
+      <mat-list-option style="height:auto" *ngFor="let pic of availablePics" [value]="pic">
+        <img style="max-width:75px;height:auto" [src]="pic">
+         {{pic}}
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+  <div fxLayout="row">
+    <button mat-raised-button (click)="addSelected(availablePicsList.selectedOptions.selected)">Add Selected</button>
   </div>
 
   <div fxLayout="row">
