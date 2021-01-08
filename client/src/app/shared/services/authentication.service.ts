@@ -40,7 +40,6 @@ export class AuthenticationService implements OnInit {
                     } else {
                         console.log('Authentication service says: ' + userData);
                         console.log('Returned to auth service');
-                        this.authService.signOut();
                         this.user = userData;
                         this.token = this.user.token;
                         this.loggedIn = (user != null);
