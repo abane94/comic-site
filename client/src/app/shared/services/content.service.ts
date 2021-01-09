@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 import { Book } from '../../../models';
+import { catchError } from 'rxjs/operators';
 
 // TODO: move the POST, PUT, and DELETE calls into a separate Studio service
 
@@ -28,26 +29,27 @@ export class ContentService {
     // payload : new book details
     // this might take more than this b/c the page arraging and uploading
 
-    const ob = this.http.post(this.booksUrl, book);
-    ob.subscribe (
-      resp => {},
-      err => {
+    return this.http.post(this.booksUrl, book).pipe(
+      catchError((err) => {
         this.handleError(err);
-      }
+
+        //Handle the error here
+
+        return throwError(err);    //Rethrow it back to component
+      })
     );
-    return ob;
-    // return 0;
   }
 
   public updateBook(book: Book) : Observable<any> {
-    const ob = this.http.put(this.booksUrl, book);
-    ob.subscribe (
-      resp => {},
-      err => {
+    return this.http.put(this.booksUrl, book).pipe(
+      catchError((err) => {
         this.handleError(err);
-      }
+
+        //Handle the error here
+
+        return throwError(err);    //Rethrow it back to component
+      })
     );
-    return ob;
   }
 
   public getAllBooks(): object {
@@ -77,27 +79,29 @@ export class ContentService {
         query = '?' + query;
       }
     }
-    const ob = this.http.get<Book[]>(this.booksUrl);
-    ob.subscribe (
-      resp => {},
-      err => {
+    return this.http.get<Book[]>(this.booksUrl).pipe(
+      catchError((err) => {
         this.handleError(err);
-      }
+
+        //Handle the error here
+
+        return throwError(err);    //Rethrow it back to component
+      })
     );
-    return ob;
   }
 
   public getBook(bookID: number): Observable<Book> {
     // change to return book object from book class
     // get : api/v1/content/book/{book id}
-    const ob = this.http.get<Book>(this.booksUrl + bookID);
-    ob.subscribe (
-      resp => {},
-      err => {
+    return this.http.get<Book>(this.booksUrl + bookID).pipe(
+      catchError((err) => {
         this.handleError(err);
-      }
+
+        //Handle the error here
+
+        return throwError(err);    //Rethrow it back to component
+      })
     );
-    return ob;
   }
 
 
@@ -118,27 +122,29 @@ export class ContentService {
       }
     }
     // not available yet
-    const ob = this.http.get<object>(this.seriesUrl + '/' + query);
-    ob.subscribe(
-      resp => {},
-      err => {
+    return this.http.get<object>(this.seriesUrl + '/' + query).pipe(
+      catchError((err) => {
         this.handleError(err);
-      }
+
+        //Handle the error here
+
+        return throwError(err);    //Rethrow it back to component
+      })
     );
-    return ob;
   }
 
   public getSeries(seriesID: number): Observable<object> {
     // change to return series object from book class
     // get : api/v1/content/series/{series id}
-    const ob = this.http.get<object>(this.booksUrl + seriesID);
-    ob.subscribe(
-      resp => {},
-      err => {
+    return this.http.get<object>(this.booksUrl + seriesID).pipe(
+      catchError((err) => {
         this.handleError(err);
-      }
+
+        //Handle the error here
+
+        return throwError(err);    //Rethrow it back to component
+      })
     );
-    return ob;
   }
 }
 

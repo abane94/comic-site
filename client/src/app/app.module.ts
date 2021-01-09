@@ -57,6 +57,7 @@ import { environment } from '../environments/environment';
 import { SharedModule } from './shared/shared.module';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { APIWrapInterceptor } from './shared/interceptors/api-wrap.interceptor';
+import { GlobalHttpErrorInterceptor } from './shared/interceptors/global-http-error.interceptor';
 
 let config = new AuthServiceConfig([{
   id: GoogleLoginProvider.PROVIDER_ID,
@@ -133,6 +134,11 @@ export function provideConfig() {
     {
       provide : HTTP_INTERCEPTORS,
       useClass: APIWrapInterceptor,
+      multi   : true,
+    },
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: GlobalHttpErrorInterceptor,
       multi   : true,
     }
   ],

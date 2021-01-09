@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 import { Post } from '../../../models';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class FeedService {
@@ -26,25 +27,27 @@ export class FeedService {
         query = '?' + query;
       }
     }
-    const ob = this.http.get<Post[]>(this.feedUrl);
-    ob.subscribe(
-      resp => {},
-      err => {
+    return this.http.get<Post[]>(this.feedUrl).pipe(
+      catchError((err) => {
         this.handleError(err);
-      }
+
+        //Handle the error here
+
+        return throwError(err);    //Rethrow it back to component
+      })
     );
-    return ob;
   }
 
   public getPost(postID: number): Observable<object> {
-    const ob = this.http.get<object>(this.feedUrl + '/' + postID);
-    ob.subscribe(
-      resp => {},
-      err => {
+    return this.http.get<object>(this.feedUrl + '/' + postID).pipe(
+      catchError((err) => {
         this.handleError(err);
-      }
+
+        //Handle the error here
+
+        return throwError(err);    //Rethrow it back to component
+      })
     );
-    return ob;
   }
 
 }
