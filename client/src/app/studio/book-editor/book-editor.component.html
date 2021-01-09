@@ -19,10 +19,8 @@
         <mat-label>Thumb Nail</mat-label>
         <mat-select formControlName="coverUrl">
           <mat-option value=""></mat-option>
-          <mat-option *ngFor="let pic of availablePics" [value]="pic"></mat-option>
+          <mat-option *ngFor="let pic of availablePics" [value]="pic">{{ pic }}</mat-option>
         </mat-select>
-        <!-- TODO: add upload option here -->
-        <!-- TODO display the image of the thumbnail -->
       </mat-form-field>
 
       <!-- Short Description -->
@@ -35,24 +33,38 @@
         <input matInput placeholder="Description" formControlName="longDesc">
       </mat-form-field>
 
-      <!-- Public -->
-      <!-- <div class="misc-bottom-padding">
-        <mat-label>Gender:</mat-label>
-        <mat-radio-group aria-label="Select an option" formControlName="gender">
-          <mat-radio-button value="Male">Male</mat-radio-button>
-          <mat-radio-button value="Female">Female</mat-radio-button>
-        </mat-radio-group>
-      </div> -->
+      <!-- Maturity Rating -->
+      <mat-form-field appearance="fill">
+        <mat-label>Maturity Rating</mat-label>
+        <mat-select formControlName="maturityRating">
+          <mat-option [value]="maturityRating.M">M - Mature Content</mat-option>
+          <mat-option [value]="maturityRating['T+']">T+ - Content For Older Teenagers</mat-option>
+          <mat-option [value]="maturityRating.T">T - Content For those 12 and Up</mat-option>
+          <mat-option [value]="maturityRating.E">E - Content for Everyone</mat-option>
+          <!-- <mat-option [value]="maturityRating.X">X - Explicit Content</mat-option> -->
+        </mat-select>
+      </mat-form-field>
 
-
-      <!-- Class -->
-      <!-- <mat-form-field>
-        <mat-label>Grade</mat-label>
-        <mat-select [(value)]="selected" formControlName="grade">
-          <mat-option [value]="gradeArray" *ngFor="let gradeArray of GradeArray">{{gradeArray}}
-          </mat-option>
+      <!-- View Access Select -->
+      <!-- <mat-form-field appearance="fill">
+        <mat-label>View Access</mat-label>
+        <mat-select formControlName="viewAccess">
+          <mat-option [value]="viewAccess.private">Private - Only you can see this book</mat-option>
+          <mat-option [value]="viewAccess.linkAccess">Link - Only those with a link can find this book</mat-option>
+          <mat-option [value]="viewAccess.public">Public - Anyone can find this book</mat-option>
         </mat-select>
       </mat-form-field> -->
+
+      <!-- View Access Radio -->
+      <div class="misc-bottom-padding">
+        <mat-label>View Access</mat-label>
+        <mat-radio-group aria-label="Select an option" formControlName="viewAccess">
+          <mat-radio-button [value]="viewAccess.private">Private - Only you can see this book</mat-radio-button>
+          <mat-radio-button [value]="viewAccess.linkAccess">Link - Only those with a link can find this book</mat-radio-button>
+          <mat-radio-button [value]="viewAccess.public">Public - Anyone can find this book</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
     </span>
 
     <span fxFlex="40" class="pages-pane" fxLayout="column">
@@ -64,19 +76,12 @@
 
     <span fxFlex class="spacer"></span>
 
-
-
-    <!-- Submit -->
-    <!-- <div>
-      <input type="submit" color="primary">
-    </div> -->
-
   </div>
 
   <div fxLayout="row">
     <mat-selection-list #availablePicsList>
-      <mat-list-option style="height:auto" *ngFor="let pic of availablePics" [value]="pic">
-        <img style="max-width:75px;height:auto" [src]="pic">
+      <mat-list-option style="height:auto" *ngFor="let pic of availablePics;let i = index" [value]="pic" (mouseover)="mouseHover(i, $event)" (mouseleave)="mouseLeave(i, $event)">
+        <img *ngIf="hoveringOn[i]" style="max-width:75px;height:auto;position: fixed;z-index: 1000;" [style.top]="hoveringOn[i].y" [style.left]="hoveringOn[i].x" [src]="pic">
          {{pic}}
       </mat-list-option>
     </mat-selection-list>

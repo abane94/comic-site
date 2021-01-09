@@ -21,24 +21,20 @@ export class BookEditorComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   form: FormGroup;
-  // pics: string[] = [];
   pics: { img: string; text: string; value: string }[] = [];
   book: Omit<Book, '_id'>;
   isEditMode = false;
   availablePics: string[] = [];
   @ViewChild('availablePicsList', {static: true}) list: MatSelectionList;
+  hoveringOn: ({x: number; y:number} | null)[] = [];
+
+  // proxies to enums that are used in the template
+  maturityRating = MaturityRating;
+  viewAccess = ViewAccess;
 
   get picsLength() {
     return this.availablePics.length;
   }
-
-  // get itemsToOrder() {
-    // return this.pics.map(url => ({
-    //   img: url,
-    //   text: url.substring(url.lastIndexOf('/') + 1),
-    //   value: url
-    // }));
-  // }
 
   constructor(
     public fb: FormBuilder,
@@ -68,7 +64,8 @@ export class BookEditorComponent implements OnInit {
         creatorId: this.auth.user._id,
         creatorName: this.auth.user.givenName + ' ' + this.auth.user.familyName,
         pages: [],
-        isBook: true
+        isBook: true,
+        lastEdited: (new Date()).toISOString()
       };
       this.reactiveForm();
     }
@@ -77,6 +74,16 @@ export class BookEditorComponent implements OnInit {
 
   onUrls($event) {
     this.availablePics.push(...$event);
+  }
+
+  mouseHover(i: number, $event) {
+    console.log(i);
+    this.hoveringOn[i] = {x: $event.clientX, y: $event.clientY};
+  }
+
+  mouseLeave(i: number, $event) {
+    console.log(i);
+    this.hoveringOn[i] = null;
   }
 
   addSelected(selection: MatListOption[]) {
@@ -103,7 +110,8 @@ export class BookEditorComponent implements OnInit {
       pages: [this.book.pages || []],
       creatorId: [this.auth.user._id],
       creatorName: [this.book.creatorName],
-      isBook: [true]
+      isBook: [true],
+      lastEdited: [this.book.lastEdited || (new Date()).toISOString()]
     };
     this.form = this.fb.group(bookFormObj);
     if (this.book.creatorName !== (this.auth.user.givenName + ' ' + this.auth.user.familyName)) {
@@ -118,14 +126,16 @@ export class BookEditorComponent implements OnInit {
     console.log(this.form.value);
     // TODO: logic will be needed for the whole editor to differential new vs update (editing existing). This will be needed here for PUT vs POST
 
+    const content: Book = this.form.value;
+    content.lastEdited = (new Date()).toISOString();
     if (this.isEditMode) {
-      this.content.updateBook(this.form.value).subscribe(
+      this.content.updateBook(content).subscribe(
         resp => {
           console.log(resp);
         },
       );
     } else {
-      this.content.newBook(this.form.value).subscribe(
+      this.content.newBook(content).subscribe(
         resp => {
           console.log(resp);
         },

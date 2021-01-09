@@ -52,6 +52,10 @@ export class OrdererComponent extends GenericControlValueAccessor<string[]> impl
   ngOnInit(): void {
   }
 
+  deleteAt(i: number) {
+    this.val.splice(i, 1);
+  }
+
   // tslint:disable:max-line-length
   // movies = [
   //   {

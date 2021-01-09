@@ -32,6 +32,7 @@ export interface Content extends Created {
     longDesc: string;
     maturityRating: MaturityRating;
     viewAccess: ViewAccess;
+    lastEdited: string;
 
     // TODO: implement contributor logic
     // contributors?: { [contributorId: string]: {
