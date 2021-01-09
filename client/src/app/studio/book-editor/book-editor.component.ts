@@ -65,7 +65,8 @@ export class BookEditorComponent implements OnInit {
         creatorName: this.auth.user.givenName + ' ' + this.auth.user.familyName,
         pages: [],
         isBook: true,
-        lastEdited: (new Date()).toISOString()
+        lastEdited: (new Date()).toISOString(),
+        created: (new Date()).toISOString()
       };
       this.reactiveForm();
     }
@@ -111,7 +112,8 @@ export class BookEditorComponent implements OnInit {
       creatorId: [this.auth.user._id],
       creatorName: [this.book.creatorName],
       isBook: [true],
-      lastEdited: [this.book.lastEdited || (new Date()).toISOString()]
+      lastEdited: [this.book.lastEdited || (new Date()).toISOString()],
+      created: [this.book.created]
     };
     this.form = this.fb.group(bookFormObj);
     if (this.book.creatorName !== (this.auth.user.givenName + ' ' + this.auth.user.familyName)) {
