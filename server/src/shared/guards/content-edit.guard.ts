@@ -38,9 +38,6 @@ export class ContentEditGuardHelper implements CanActivate {
 
         if (!content) { return true; }  // if there is no body, errors will happen else where
 
-
-        const contentO = convertToObjectId(content);
-
         switch((request.method as string).toUpperCase()) {
             case 'GET':
                 return true;
@@ -49,7 +46,7 @@ export class ContentEditGuardHelper implements CanActivate {
             case 'PUT':
                 // update & delete
                 const col = this.collections[collection];
-                const old = await col.findOne<Content>({_id: contentO._id})
+                const old = await col.findOne<Content>({_id: convertToObjectId(content)._id})
                 return (old.creatorId === (user._id.toHexString ? user._id.toHexString() : user._id).toString());
                 break;
             case 'POST':
