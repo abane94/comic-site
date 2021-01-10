@@ -2,6 +2,7 @@ import { Content } from './helpers';
 
 interface Page {
     src: string;
+    name: string;
 }
 
 export interface BookBase {

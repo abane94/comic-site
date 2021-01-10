@@ -16,19 +16,19 @@ interface OrderErElement {
   styleUrls: ['./orderer.component.scss'],
   providers: [GenericControlProvider(OrdererComponent)]
 })
-export class OrdererComponent extends GenericControlValueAccessor<string[]> implements OnInit {
+export class OrdererComponent<T> extends GenericControlValueAccessor<T[]> implements OnInit {
   // @Input()
   // initial: string[];
   @Input()
-  list: {
-    img: string;
-    text: string;
-    hover?: string;
-    value: any;
-  }[];
+  list: T[] = [];
+  @Input()
+  getImg: (v: T) => string = (v: T) => '';
+  @Input()
+  getText: (v: T) => string = (v: T) => '';
+
   constructor() { super() }
 
-  get value(): string[] {
+  get value(): T[] {
     return this.val;
   }
 
@@ -36,7 +36,7 @@ export class OrdererComponent extends GenericControlValueAccessor<string[]> impl
     return window.innerHeight < window.innerWidth
   }
 
-  set value(v: string[]) {
+  set value(v: T[]) {
     // TODO: any logic for setting the value
     this.val = v;
     this._changeHandler(v);
@@ -55,47 +55,6 @@ export class OrdererComponent extends GenericControlValueAccessor<string[]> impl
   deleteAt(i: number) {
     this.val.splice(i, 1);
   }
-
-  // tslint:disable:max-line-length
-  // movies = [
-  //   {
-  //     title: 'Episode I - The Phantom Menace',
-  //     poster: 'https://upload.wikimedia.org/wikipedia/en/4/40/Star_Wars_Phantom_Menace_poster.jpg'
-  //   },
-  //   {
-  //     title: 'Episode II - Attack of the Clones',
-  //     poster: 'https://upload.wikimedia.org/wikipedia/en/3/32/Star_Wars_-_Episode_II_Attack_of_the_Clones_%28movie_poster%29.jpg'
-  //   },
-  //   {
-  //     title: 'Episode III - Revenge of the Sith',
-  //     poster: 'https://upload.wikimedia.org/wikipedia/en/9/93/Star_Wars_Episode_III_Revenge_of_the_Sith_poster.jpg'
-  //   },
-  //   {
-  //     title: 'Episode IV - A New Hope',
-  //     poster: 'https://upload.wikimedia.org/wikipedia/en/8/87/StarWarsMoviePoster1977.jpg'
-  //   },
-  //   {
-  //     title: 'Episode V - The Empire Strikes Back',
-  //     poster: 'https://upload.wikimedia.org/wikipedia/en/3/3c/SW_-_Empire_Strikes_Back.jpg'
-  //   },
-  //   {
-  //     title: 'Episode VI - Return of the Jedi',
-  //     poster: 'https://upload.wikimedia.org/wikipedia/en/b/b2/ReturnOfTheJediPoster1983.jpg'
-  //   },
-  //   {
-  //     title: 'Episode VII - The Force Awakens',
-  //     poster: 'https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg'
-  //   },
-  //   {
-  //     title: 'Episode VIII - The Last Jedi',
-  //     poster: 'https://upload.wikimedia.org/wikipedia/en/7/7f/Star_Wars_The_Last_Jedi.jpg'
-  //   },
-  //   {
-  //     title: 'Episode IX – The Rise of Skywalker',
-  //     poster: 'https://upload.wikimedia.org/wikipedia/en/a/af/Star_Wars_The_Rise_of_Skywalker_poster.jpg'
-  //   }
-  // ];
-  // tslint:enable:max-line-length
 
   drop(event: CdkDragDrop<{title: string, poster: string}[]>) {
     moveItemInArray(this.val, event.previousIndex, event.currentIndex);

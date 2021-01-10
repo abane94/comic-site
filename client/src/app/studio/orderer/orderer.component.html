@@ -1,8 +1,14 @@
-<div cdkDropList [cdkDropListOrientation]="isLandscape ? 'horizontal' : 'vertical'" class="example-list" (cdkDropListDropped)="drop($event)" [cdkDropListData]="val" style="margin:10px">
-    <div class="example-box noselect" *ngFor="let item of val;let i = index" cdkDrag>
-        <mat-icon style="position: relative; top: 10px; left: 10px" (click)="deleteAt(i)" aria-hidden="false" aria-label="Example close icon">close</mat-icon>
-        <div><img  [src]="item.img" [alt]="item.text" style="width: 40%;"></div>
-        <div>{{item.text}}</div>
-        <!-- <img *cdkDragPreview [src]="movie.poster" [alt]="movie.title"> -->
+<!-- <div class="container" cdkScrollable> -->
+    <div class="container" cdkDropList [cdkDropListOrientation]="isLandscape ? 'horizontal' : 'vertical'" class="example-list" (cdkDropListDropped)="drop($event)" [cdkDropListData]="val" style="margin:10px">
+        <div class="example-box noselect" *ngFor="let item of val;let i = index" cdkDrag>
+            <div style="width:100%;">
+                <mat-icon (click)="deleteAt(i)" aria-hidden="false" aria-label="Example close icon">close</mat-icon>
+            </div>
+            <img  [src]="getImg(item)" [alt]="getText(item)">
+            <div>{{getText(item)}}</div>
+
+            <!-- <img *cdkDragPreview [src]="movie.poster" [alt]="movie.title"> -->
+        </div>
     </div>
-</div>
+<!-- </div> -->
+

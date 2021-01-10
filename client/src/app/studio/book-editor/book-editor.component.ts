@@ -10,6 +10,8 @@ import { ContentService } from '../../shared/services/content.service';
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 
+type ElementOf<ArrayType extends readonly unknown[]> = ArrayType[number];
+
 type BookFormObj = {
   [P in keyof Book]?: any;
 }
@@ -25,7 +27,7 @@ export class BookEditorComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   form: FormGroup;
-  pics: { img: string; text: string; value: string }[] = [];
+  pics: Book['pages'] = [];
   book: Optional<Book, '_id' | 'title'>;
   isEditMode = false;
   availablePics: string[] = [];
@@ -80,6 +82,14 @@ export class BookEditorComponent implements OnInit {
     }
   }
 
+  ordererGetImg = (page: ElementOf<Book['pages']>): string => {
+    return page?.src || '';
+  }
+
+  ordererGetText = (page: ElementOf<Book['pages']>): string => {
+    return page?.name || '';
+  }
+
 
   onUrls($event) {
     this.availablePics.push(...$event);
@@ -100,9 +110,8 @@ export class BookEditorComponent implements OnInit {
 
   addSelected(selection: MatListOption[]) {
     this.pics.push(...selection.map(s => s.value).map(url => ({
-      img: url,
-      text: url.substring(url.lastIndexOf('/') + 1),
-      value: url
+      src: url,
+      name: url.substring(url.lastIndexOf('/') + 1),
     })));
     this.form.controls['pages'].setValue(this.pics);
     this.list.deselectAll();
