@@ -11,11 +11,12 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { BookEditorComponent } from './book-editor/book-editor.component';
 import { UploadModule } from '../upload/upload.module';
 import { OrdererComponent } from './orderer/orderer.component';
+import { BookListComponent } from './book-list/book-list.component';
 
 
 
 @NgModule({
-  declarations: [StudioHomeComponent, BookEditorComponent, OrdererComponent],
+  declarations: [StudioHomeComponent, BookEditorComponent, OrdererComponent, BookListComponent],
   imports: [
     CommonModule,
     DragDropModule,

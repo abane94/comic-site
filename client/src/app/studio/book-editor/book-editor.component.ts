@@ -6,6 +6,10 @@ import { Book, MaturityRating, ViewAccess } from 'src/models';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { ContentService } from '../../shared/services/content.service';
 
+// TODO: move to a utility types file
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+
 type BookFormObj = {
   [P in keyof Book]?: any;
 }
@@ -22,7 +26,7 @@ export class BookEditorComponent implements OnInit {
   addOnBlur = true;
   form: FormGroup;
   pics: { img: string; text: string; value: string }[] = [];
-  book: Omit<Book, '_id'>;
+  book: Optional<Book, '_id' | 'title'>;
   isEditMode = false;
   availablePics: string[] = [];
   @ViewChild('availablePicsList', {static: true}) list: MatSelectionList;
@@ -50,6 +54,10 @@ export class BookEditorComponent implements OnInit {
       this.isEditMode = true;
       this.content.getBook(id).toPromise().then(book => {
         this.book = book;
+        this.availablePics = [...this.availablePics, book.coverUrl, ... book.pages.map(p => p.src || (p as any).value)]
+        if (this.availablePics.length) {
+          this.form?.controls?.coverUrl.enable()
+        }
         this.reactiveForm();
       })
 
@@ -75,6 +83,9 @@ export class BookEditorComponent implements OnInit {
 
   onUrls($event) {
     this.availablePics.push(...$event);
+    if (this.availablePics.length) {
+      this.form?.controls?.coverUrl.enable()
+    }
   }
 
   mouseHover(i: number, $event) {
@@ -101,9 +112,10 @@ export class BookEditorComponent implements OnInit {
   reactiveForm() {
     // pulling this out of the fb.group(..) call allows for typechecking against the fields in the user model
     const bookFormObj: BookFormObj = {
+      _id: [this.book._id || ''],
       title: [this.book.title],
       singleBook: [true],
-      coverUrl: new FormControl({ value: this.book.coverUrl, disabled: this.picsLength }),
+      coverUrl: new FormControl({ value: this.book.coverUrl, disabled: !this.availablePics.length }),
       shortDesc: [this.book.shortDesc],
       longDesc: [this.book.longDesc],
       maturityRating: [this.book.maturityRating],
@@ -137,6 +149,7 @@ export class BookEditorComponent implements OnInit {
         },
       );
     } else {
+      delete content._id;
       this.content.newBook(content).subscribe(
         resp => {
           console.log(resp);

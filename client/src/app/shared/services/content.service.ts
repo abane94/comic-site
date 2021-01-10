@@ -5,6 +5,8 @@ import { Observable, throwError } from 'rxjs';
 
 import { Book } from '../../../models';
 import { catchError } from 'rxjs/operators';
+import { MaturityRating, ViewAccess } from '../../../models';
+import { HttpParams } from '@angular/common/http';
 
 // TODO: move the POST, PUT, and DELETE calls into a separate Studio service
 
@@ -70,16 +72,32 @@ export class ContentService {
   //   return {'data': this.book_list};
   // }
 
-  public getBooks(query: String): Observable<Array<Book>> {
-    if (!query || !query.indexOf('=')) {
-      query = '';
-    } else {
-      query = query.trim();
-      if (query.charAt(0) !== '?') {
-        query = '?' + query;
-      }
-    }
-    return this.http.get<Book[]>(this.booksUrl).pipe(
+  public getBooks(
+      creator: string | string[],
+      maturity: MaturityRating,
+      access: ViewAccess,  // TODO: I dont think it makes sense to allow this, maybe just a private boolean?
+      limit = 20,
+      skip = 0,
+      sort: 'TITLE' | 'MATURITY' | 'ACCESS' | 'EDITED' | 'CREATED' = 'CREATED'
+    ): Observable<Array<Book>> {
+    // if (!query || !query.indexOf('=')) {
+    //   query = '';
+    // } else {
+    //   query = query.trim();
+    //   if (query.charAt(0) !== '?') {
+    //     query = '?' + query;
+    //   }
+    // }
+
+    const params = new HttpParams()
+      .set('creator', typeof creator === 'string' ? creator : creator.join(','))
+      .set('maturity', (maturity || '').toString())
+      .set('access', (access || '').toString())
+      .set('limit', limit.toString())
+      .set('skip', skip.toString())
+      .set('sort', sort)
+
+    return this.http.get<Book[]>(this.booksUrl, {params}).pipe(
       catchError((err) => {
         this.handleError(err);
 

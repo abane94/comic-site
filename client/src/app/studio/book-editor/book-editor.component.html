@@ -1,4 +1,4 @@
-<form [formGroup]="form" novalidate >
+<form *ngIf="form" [formGroup]="form" novalidate >
   <div fxLayout="row">
     <span fxFlex="10" class="spacer"></span>
 
@@ -18,7 +18,8 @@
       <mat-form-field appearance="fill">
         <mat-label>Thumb Nail</mat-label>
         <mat-select formControlName="coverUrl">
-          <mat-option value=""></mat-option>
+          <mat-option *ngIf="!book.coverUrl" disabled value=""></mat-option>
+          <mat-option *ngIf="book.coverUrl" disabled [value]="book.coverUrl"> {{ book.coverUrl }}</mat-option>
           <mat-option *ngFor="let pic of availablePics" [value]="pic">{{ pic }}</mat-option>
         </mat-select>
       </mat-form-field>

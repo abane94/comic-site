@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { ContentService } from '../../shared/services/content.service';
 
 import { Book } from '../../../models';
+import { MaturityRating, ViewAccess } from '../../../models';
 
 @Component({
   selector: 'app-card-grid',
@@ -40,7 +41,7 @@ export class CardGridComponent implements OnInit {
         }
         this.grid_query = this.grid_data;
         // let data: object;
-        this.cont.getBooks(this.grid_query).subscribe(
+        this.cont.getBooks('', MaturityRating.E, ViewAccess.public).subscribe(
           resp => {
             const cards = <Array<Book>>resp;
             this.grid_data = { cards: cards, query: this.grid_query };
@@ -57,7 +58,7 @@ export class CardGridComponent implements OnInit {
           this.grid_query = '';
         }
         // let data: object;
-        this.cont.getBooks(this.grid_query).subscribe(
+        this.cont.getBooks('', MaturityRating.E, ViewAccess.public).subscribe(
           resp => {
             const cards = <Array<Book>>resp;
             this.grid_data = { cards: cards, query: this.grid_query };
