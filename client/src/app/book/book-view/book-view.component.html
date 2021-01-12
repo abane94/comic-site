@@ -3,14 +3,8 @@
     <!-- {{image}} -->
   </p>
   <div *ngIf="images && images.length" style="width: 600px;">
-    <!-- <slideshow [imageUrls]="images"></slideshow> -->
-    <!-- <slideshow
-           [minHeight]="'700px'"
-           [autoPlay]="false"
-           [showArrows]="true"
-           [imageUrls]="images"
-           [lazyLoad]="images?.length > 1"
-           [autoPlayWaitForLazyLoad]="true">
-    </slideshow> -->
+    <swiper [spaceBetween]="50">
+      <ng-template swiperSlide *ngFor="let image of images"><img style="width: 430px; height: 666px" [src]="image"></ng-template>
+    </swiper>
   </div>
 </div>
