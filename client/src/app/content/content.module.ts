@@ -9,6 +9,7 @@ import { UploadModule } from '../upload/upload.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { BookCardComponent } from './content-card/book-card/book-card.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { BookCardComponent } from './content-card/book-card/book-card.component'
     MatButtonModule,
     MatCardModule,
     // UploadModule
+    RouterModule
   ],
   declarations: [
       CardGridComponent,

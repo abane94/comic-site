@@ -19,7 +19,7 @@ export class BookViewComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params: Params) => {
       console.log(params.get('id'));
       console.dir(params);
-      this.cont.getBook(+params.get('id')).subscribe(
+      this.cont.getBook(params.get('id')).subscribe(
         resp => {
           this.book = <Book>resp;
           this.images = this.book.pages.map(page=>{ return page.src});
