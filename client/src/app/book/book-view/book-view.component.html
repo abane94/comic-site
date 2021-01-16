@@ -1,10 +1,25 @@
-<div>
-  <p *ngFor="let image of images">
-    <!-- {{image}} -->
-  </p>
-  <div *ngIf="images && images.length" style="width: 600px;">
-    <swiper [spaceBetween]="50">
-      <ng-template swiperSlide *ngFor="let image of images"><img style="width: 430px; height: 666px" [src]="image"></ng-template>
+<div style="width: 860px; height: 1322px">
+  <div *ngIf="images && images.length">
+    <swiper
+      [spaceBetween]="10"
+      [slidesPerView]="2"
+      [pagination]="{ clickable: true }"
+      [keyboard]="true"
+      [navigation]="true"
+    >
+      <ng-container>
+        <ng-template swiperSlide>
+          <!-- Empty 1st slide, so only the cover is present on load -->
+        </ng-template>
+      </ng-container>
+
+
+      <ng-container *ngFor="let image of images;let i = index">
+        <ng-template swiperSlide>
+          <img style="width: 430px; height: 666px" [src]="image" [attr.data-hash]="i">
+        </ng-template>
+      </ng-container>
+
     </swiper>
   </div>
 </div>
