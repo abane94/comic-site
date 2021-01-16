@@ -3,17 +3,28 @@ table {
     width: 100%;
   }
 
+  .container {
+    height: 80vh;
+  }
+
+  .main-table {
+    // max-height:60vh;
+    // max-width:60vw;
+    overflow-y:scroll;
+    overflow-x:scroll;
+  }
+
   tr.example-detail-row {
     height: 0;
   }
 
   tr.example-element-row:not(.example-expanded-row):hover {
-    background: whitesmoke;
+    background: #303030;
   }
 
-  tr.example-element-row:not(.example-expanded-row):active {
-    background: #efefef;
-  }
+  // tr.example-element-row:not(.example-expanded-row):active {
+  //   background: blue;
+  // }
 
   .example-element-row td {
     border-bottom-width: 0;
@@ -22,27 +33,79 @@ table {
   .example-element-detail {
     overflow: hidden;
     display: flex;
+    margin: 5px;
   }
 
-  .example-element-diagram {
-    min-width: 80px;
-    border: 2px solid black;
-    padding: 8px;
-    font-weight: lighter;
-    margin: 8px 0;
-    height: 104px;
+  .cover-container {
+    margin: 5px;
+    border: solid black 1px;
+
+    img {
+      height: 25vh;
+      width: auto;
+    }
   }
 
-  .example-element-symbol {
+  .maturity {
+    margin: 5px;
+    padding: 2px 5px;
+    border: solid black 2px;
     font-weight: bold;
-    font-size: 40px;
-    line-height: normal;
+    color: black;
   }
 
-  .example-element-description {
-    padding: 16px;
+  .maturity-description {
+    padding-top: 10px;
   }
 
-  .example-element-description-attribution {
-    opacity: 0.5;
+
+  // .mat-table {
+  //   overflow-x: scroll;
+  // }
+
+  // .mat-cell,
+  // .mat-header-cell {
+  //   word-wrap: initial;
+  //   display: table-cell;
+  //   padding: 0px 10px;
+  //   line-break: unset;
+  //   width: 100%;
+  //   white-space: nowrap;
+  //   overflow: hidden;
+  //   vertical-align: middle;
+  // }
+
+  // .mat-row,
+  // .mat-header-row {
+  //   display: table-row;
+  // }
+
+
+  .container {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    .main-table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        display: table;
+        border-collapse: collapse;
+        margin: 0px;
+    }
+    .mat-row,
+    .mat-header-row {
+        display: table-row;
+    }
+    .mat-cell,
+    .mat-header-cell {
+        word-wrap: initial;
+        display: table-cell;
+        padding: 0px 5px;
+        line-break: unset;
+        width: auto;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: middle;
+    }
   }

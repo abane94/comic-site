@@ -19,10 +19,21 @@ import { MaturityRating, ViewAccess } from '../../../../../server/src/models/hel
 })
 export class BookListComponent implements OnInit {
   // dataSource = ELEMENT_DATA;
-  columnsToDisplay = ['title', 'shortDesc', 'maturityRating', 'viewAccess', 'created', 'lastEdited'];  // todo: page count
+  columnsToDisplay = [
+    'title',
+    'shortDesc',
+    // 'maturityRating',
+    'viewAccess',
+    // 'created',
+    'lastEdited'
+  ];  // todo: page count
   expandedElement: Book | null;
   public books: Book[];
-  allColumns = [...this.columnsToDisplay, 'edit', 'delete'];
+  allColumns = [
+    ...this.columnsToDisplay,
+    // 'edit',
+    // 'delete'
+  ];
 
   titleDisplay = {
     title: 'Title',
@@ -38,7 +49,7 @@ export class BookListComponent implements OnInit {
     // title: (b: Book) => b.title,
     shortDesc: (b: Book) => b.shortDesc,
     maturityRating: (b: Book) => MaturityRating[b.maturityRating],
-    viewAccess: (b: Book) => ViewAccess[b.viewAccess],
+    viewAccess: (b: Book) => (ViewAccess[b.viewAccess] || '').toUpperCase(),
     created: (b: Book) => b.created ? new Date(b.created).toDateString() : '-',
     lastEdited: (b: Book) => b.lastEdited ? new Date(b.lastEdited).toDateString() : '-',
   }

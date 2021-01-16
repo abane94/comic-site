@@ -1,14 +1,14 @@
-<h2>My Books</h2>
+<h2>My Books  {{ books ? books.length : '' }}</h2>
 
-<div style="width:100%">
-    <table *ngIf="books" mat-table [dataSource]="books" multiTemplateDataRows class="mat-elevation-z8">
+<div class="container" style="width:100%; overflow: scroll;">
+    <table class="main-table" *ngIf="books" mat-table [dataSource]="books" multiTemplateDataRows class="mat-elevation-z8">
         <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
             <th mat-header-cell *matHeaderCellDef> {{ titleDisplay[column] }} </th>
             <td mat-cell *matCellDef="let element"> {{ dataDisplay[column] ? dataDisplay[column](element) : element[column] }} </td>
         </ng-container>
 
         <!-- <mat-text-column name="edit"></mat-text-column> -->
-        <ng-container matColumnDef="edit">
+        <!-- <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef>Edit</th>
             <td mat-cell *matCellDef="let element">
                 <a [routerLink]="['..', 'book', element._id]">
@@ -26,17 +26,31 @@
                     <mat-icon>delete</mat-icon>
                 </button>
             </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
         <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
                 <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                    <div>
+                    <div class="cover-container">
                         <img [src]="element.coverUrl">
                     </div>
-                    <div>
-                        {{ element.longDesc }}
+                    <div fxLayout="column" fxLayoutAlign="space-between start">
+                        <div class="detail-top-row" fxLayout="row" fxLayoutAlign="space-between start">
+                            <div class="maturity">{{ dataDisplay['maturityRating'](element) }}</div>
+                            <div class="maturity-description"> - TODO longer rating description</div>
+                            <a [routerLink]="['..', 'book', element._id]">
+                                <button mat-icon-button>
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </a>
+                            <button mat-icon-button (click)="deleteBook(element, $event)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+
+                        <div>{{ element.longDesc }}</div>
+                        <div>Created: {{ dataDisplay['created'](element) }}</div>
                     </div>
                 </div>
             </td>

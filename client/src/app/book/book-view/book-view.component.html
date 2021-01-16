@@ -1,7 +1,7 @@
-<div style="width: 860px; height: 1322px">
+<div> <!-- style="width: 860px; height: 1322px" -->
   <div *ngIf="images && images.length">
     <swiper
-      [spaceBetween]="10"
+      [spaceBetween]="0"
       [slidesPerView]="2"
       [pagination]="{ clickable: true }"
       [keyboard]="true"
@@ -16,7 +16,7 @@
 
       <ng-container *ngFor="let image of images;let i = index">
         <ng-template swiperSlide>
-          <img style="width: 430px; height: 666px" [src]="image" [attr.data-hash]="i">
+          <img [src]="image" [attr.data-hash]="i" style="width: auto; height: 85vh"> <!--  style="width: 430px; height: 666px" -->
         </ng-template>
       </ng-container>
 

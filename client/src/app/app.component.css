@@ -33,6 +33,6 @@ activity-feed {
 
 mat-card.main {
     margin: 10px 30px;
-    height: calc(100% - 130px);
-
+    min-height: calc(100% - 130px);
+    /* overflow-y: scroll; */
 }
